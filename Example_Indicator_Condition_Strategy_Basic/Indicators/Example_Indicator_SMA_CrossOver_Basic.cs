@@ -68,8 +68,13 @@ namespace AgenaTrader.UserCode
             }
 		}
 
+        //defines display name of indicator (e.g. in AgenaTrader chart window)
+        public override string ToString()
+        {
+            return "Example SMA CrossOver Basic";
+        }
 
-        //defines display name of indicator (in AgenaTrader indicator selection window)
+        //defines display name of indicator (e.g. in AgenaTrader indicator selection window)
         public override string DisplayName
         {
             get
