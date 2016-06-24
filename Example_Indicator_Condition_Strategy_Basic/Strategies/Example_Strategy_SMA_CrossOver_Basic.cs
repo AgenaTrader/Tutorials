@@ -11,6 +11,21 @@ using AgenaTrader.Custom;
 using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
+
+/// <summary>
+/// Version: 1.0.0
+/// -------------------------------------------------------------------------
+/// Simon Pucher 2016
+/// Christian Kovar 2016
+/// -------------------------------------------------------------------------
+/// This strategy provides entry signals and order management for a SMA crossover.
+/// Long  Signal when SMA20 crosses SMA50 above. Plot is set to  1
+/// Short Signal wenn SMA20 crosses SMA50 below. Plot is set to -1
+/// StopLoss and Target is set for 1%
+/// You can use this indicator also as a template for further script development.
+/// -------------------------------------------------------------------------
+/// Namespace holds all indicators and is required. Do not change it.
+/// </summary>
 namespace AgenaTrader.UserCode
 {
 	[Description("Basic strategy example for SMA crossover")]
@@ -64,6 +79,12 @@ namespace AgenaTrader.UserCode
             }
 
 		}
+
+        //defines display name of indicator (e.g. in AgenaTrader chart window)
+        public override string ToString()
+        {
+            return "Example SMA CrossOver Basic";
+        }
 
         //defines display name of indicator (in AgenaTrader indicator selection window)
         public override string DisplayName
