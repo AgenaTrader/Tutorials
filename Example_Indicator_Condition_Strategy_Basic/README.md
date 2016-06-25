@@ -3,13 +3,6 @@
 
 This tutorial will show you a basic template for indicators, conditions and strategies.
 
-#General
-##Bars required
-Because of backtesting reasons if we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the Initialize() method.
-```C#
-this.BarsRequired = 50;
-```
-
 #Indicator
 In many cases we are starting with indicators because indicators are the best place to start on script development. 
 You will be able to get pretty quick an indication if your trading idea is working and of course you are able to screen instruments visual and verify if your trading idea will be profitable.
@@ -63,49 +56,84 @@ protected override void OnBarUpdate()
 ```
 
 #Strategy
-##Default time frame
-If you start the strategy via the strategy-escort you need to set the default time frame. In this case you override the zero default time frame in strategy escort. If you start the strategy on a chart the time frame is automatically set, this will lead to a better usability in both cases.
-```C#
-            if (this.TimeFrame == null || this.TimeFrame.PeriodicityValue == 0)
-            {
-                this.TimeFrame = new TimeFrame(DatafeedHistoryPeriodicity.Minute, 1);
-            }
-```
 ##OnBarUpdate
 Same procedure as in the condition. We create a fresh instance of the indicator and save the return value into a variable and we call the methods to create orders.
 
 ```C#
-            DummyOneMinuteEvenOdd_Indicator _DummyOneMinuteEvenOdd_Indicator = LeadIndicator.DummyOneMinuteEvenOdd_Indicator();
-            double returnvalue = _DummyOneMinuteEvenOdd_Indicator[0];
+protected override void OnBarUpdate()
+{
+            string uniqueOrderName;
+
+            //get the indicator
+            Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic = LeadIndicator.Example_Indicator_SMA_CrossOver_Basic();
+
+            //get the value
+            double returnvalue = Example_Indicator_SMA_CrossOver_Basic[0];
+
+            //Entry
             if (returnvalue == 1)
-            {
-                this.DoEnterLong();
+            {   
+                //define a unique name for the order. in this example the current bars timestamp
+                uniqueOrderName = "Long_SMA_CrossOver" + Bars[0].Time.ToString();
+
+                //create the long order with quantity "1" and our unique OrderName
+                IOrder _orderenterlong = EnterLong(1, uniqueOrderName);
+
+                //set a stop loss for our order. we set it 1% below the current price
+                SetStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
+
+                //set a target for our order. we set it 1% above the current price
+                SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01); 
+
+
             }
             else if (returnvalue == -1)
             {
-                this.DoEnterShort();
+                //define a unique name for the order. in this example the current bars timestamp
+                uniqueOrderName = "Short_SMA_CrossOver" + Bars[0].Time.ToString();
+
+                //create the short order with quantity "1" and our unique OrderName
+                IOrder _orderentershort = EnterShort(1, uniqueOrderName);
+
+                //set a stop loss for our order. we set it 1% above the current price
+                SetStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
+
+                //set a target for our order. we set it 1% below the current price
+                SetProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.99);
             }
-	}
+}
 ```
 
 #Miscellaneous
+##Bars required
+Because of backtesting reasons if we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the Initialize() method.
+```C#
+this.BarsRequired = 50;
+```
+
 ##Filenames and Class names
-To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name.
+To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different.
 
 ##DisplayName and ToString()
 In each script we override the ToString() method and the DisplayName to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader.
 ```C#
-
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader chart window)
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return "Dummy even/odd (S)";
+            return "Example SMA CrossOver Basic";
         }
 
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)
+        /// </summary>
         public override string DisplayName
         {
             get
             {
-                return "Dummy even/odd (S)";
+                return "Example SMA CrossOver Basic";
             }
         }
 ```
