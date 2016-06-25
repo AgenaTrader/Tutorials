@@ -5,4 +5,4 @@ These two tutorials will show you our templates for indicators, conditions, stra
 
 [Basic](https://github.com/AgenaTrader/Tutorials/blob/master/Example_Indicator_Condition_Strategy_Basic/Example_Indicator_Condition_Strategy_Basic.md)
 
-[Advanced](https://github.com/AgenaTrader/Tutorials/blob/master/Example_Indicator_Condition_Strategy/Example_Indicator_Condition_Strategy_Advanced.md)
+[Advanced](https://github.com/AgenaTrader/Tutorials/blob/master/Example_Indicator_Condition_Strategy_Advanced/Example_Indicator_Condition_Strategy_Advanced.md)
