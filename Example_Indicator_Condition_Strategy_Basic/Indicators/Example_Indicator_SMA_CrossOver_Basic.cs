@@ -37,7 +37,9 @@ namespace AgenaTrader.UserCode
             //Define if the OnBarUpdate method should be triggered only on BarClose (=end of period)
             //or with each price update
 			CalculateOnBarClose = true;
-		}
+
+            this.BarsRequired = 50;
+        }
 
 		protected override void OnBarUpdate()
 		{

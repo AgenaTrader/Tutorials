@@ -28,7 +28,9 @@ namespace AgenaTrader.UserCode
 		protected override void Initialize()
 		{
 			CalculateOnBarClose = true;
-		}
+
+            this.BarsRequired = 50;
+        }
 
 		protected override void OnBarUpdate()
 		{
