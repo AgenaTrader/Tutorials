@@ -11,9 +11,8 @@ using AgenaTrader.Custom;
 using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
-
 /// <summary>
-/// Version: 1.0.0
+/// Version: 1.0.1
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
@@ -25,7 +24,6 @@ using AgenaTrader.Helper;
 /// -------------------------------------------------------------------------
 /// Namespace holds all indicators and is required. Do not change it.
 /// </summary>
-
 namespace AgenaTrader.UserCode
 {
 	[Description("Basic indicator example for SMA crossover")]
@@ -34,7 +32,7 @@ namespace AgenaTrader.UserCode
 		protected override void Initialize()
 		{
             //Define the plot and its color which is displayed underneath the chart
-			Add(new Plot(Color.Orange, "CrossOver"));
+			Add(new Plot(Color.Orange, "SMA_CrossOver"));
 
             //Define if the OnBarUpdate method should be triggered only on BarClose (=end of period)
             //or with each price update
@@ -53,28 +51,33 @@ namespace AgenaTrader.UserCode
             if (CrossAbove(SMA(20), SMA(50), 0) == true)
             {
                 //set the value of the plot to "1" to inidcate a long signal
-                this.CrossAbove.Set(1);
+                this.SMA_CrossOver.Set(1);
             }
             //the internal function CrossBelow checks if the two values are crossing below
             else if (CrossBelow(SMA(20), SMA(50), 0) == true)
             {
                 //set the value of the plot to "-1" to inidcate a short signal
-                this.CrossAbove.Set(-1);
+                this.SMA_CrossOver.Set(-1);
             }
             else
             {
              //set the value of the plot to "0" to inidcate a flat signal
-                this.CrossAbove.Set(0);
+                this.SMA_CrossOver.Set(0);
             }
 		}
 
-        //defines display name of indicator (e.g. in AgenaTrader chart window)
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader chart window)
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return "Example SMA CrossOver Basic";
         }
 
-        //defines display name of indicator (e.g. in AgenaTrader indicator selection window)
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)
+        /// </summary>
         public override string DisplayName
         {
             get
@@ -85,24 +88,25 @@ namespace AgenaTrader.UserCode
 
 
 		#region Properties
-        //internal setting for plot
+        //output data for plot
 		[Browsable(false)]
 		[XmlIgnore()]
-        public DataSeries CrossAbove
-		{
+        public DataSeries SMA_CrossOver
+        {
 			get { return Values[0]; }
 		}
 
 		#endregion
 	}
 }
+
 #region AgenaTrader Automaticaly Generated Code. Do not change it manualy
 
 namespace AgenaTrader.UserCode
 {
 	#region Indicator
 
-	public partial class UserIndicator : Indicator
+	public partial class UserIndicator
 	{
 		/// <summary>
 		/// Basic indicator example for SMA crossover

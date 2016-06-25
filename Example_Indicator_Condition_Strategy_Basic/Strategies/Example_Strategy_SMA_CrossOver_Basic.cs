@@ -2,18 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Xml;
 using System.Xml.Serialization;
 using AgenaTrader.API;
-using AgenaTrader.Custom;
 using AgenaTrader.Plugins;
-using AgenaTrader.Helper;
-
 
 /// <summary>
-/// Version: 1.0.0
+/// Version: 1.0.1
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
@@ -80,13 +74,18 @@ namespace AgenaTrader.UserCode
 
 		}
 
-        //defines display name of indicator (e.g. in AgenaTrader chart window)
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader chart window)
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return "Example SMA CrossOver Basic";
         }
 
-        //defines display name of indicator (in AgenaTrader indicator selection window)
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)
+        /// </summary>
         public override string DisplayName
         {
             get
@@ -95,5 +94,5 @@ namespace AgenaTrader.UserCode
             }
         }
 
-	}
+    }
 }
