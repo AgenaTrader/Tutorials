@@ -123,10 +123,8 @@ get
 ```
 
 #Files
-[Indicator](https://github.com/simonpucher/AgenaTrader/blob/master/Indicator/DummyOneMinuteEvenOdd_Advanced_Indicator.cs)
+[Indicator](https://github.com/AgenaTrader/Tutorials/blob/master/Example_Indicator_Condition_Strategy_Advanced/Indicators/Example_Indicator_SMA_CrossOver_Advanced.cs)
 
-[Condition](https://github.com/simonpucher/AgenaTrader/blob/master/Condition/DummyOneMinuteEntryOdd_Advanced_Condition.cs)
+[Condition](https://github.com/AgenaTrader/Tutorials/blob/master/Example_Indicator_Condition_Strategy_Advanced/ScriptedConditions/Example_Condition_SMA_CrossOver_Advanced.cs)
 
-[Strategy](https://github.com/simonpucher/AgenaTrader/blob/master/Strategy/DummyOneMinuteOdd_Advanced_Strategy.cs)
-
-To compile these scripts without any error you also need access to the [utility indicator] (https://github.com/simonpucher/AgenaTrader/blob/master/Utility/GlobalUtilities_Utility.cs) to use global source code elements.
+[Strategy](https://github.com/AgenaTrader/Tutorials/blob/master/Example_Indicator_Condition_Strategy_Advanced/Strategies/Example_Strategy_SMA_CrossOver_Advanced.cs)
