@@ -1,7 +1,7 @@
 #Template for Indicator, Condition and Strategy
 [Originally posted as a question in the Agenatrader forum](http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&t=2680&p=11739)
 
-This tutorial will show you our templates for indicators, conditions, strategies and give you the ability to communicate between these scripts. This will lead you to more code transparency and reduces your programming time. 
+This tutorial will show you a templates for indicators, conditions, strategies and give you the ability to communicate between these scripts. This will lead you to more code transparency and reduces your programming time. 
 
 ##Why do we want this?
 AgenaTrader provides you the ability to create indicators, conditions, alerts and strategies in c# and use them during trading. 
@@ -11,14 +11,6 @@ Programming by using "copy & paste" is easy but on the other hand there are many
 #Indicator
 In many cases we are starting with indicators because indicators are the best place to start on script development. 
 You will be able to get pretty quick an indication if your trading idea is working and of course you are able to screen instruments visual and verify if your trading idea will be profitable.
-
-##Interface
-We use an interface to ensure that all scripts like indicators, conditions, strategies and alerts use the same properties and methods. 
-```C#
-public interface IDummyOneMinuteEvenOdd {
-   /* Here we define all properties we need. */
-}
-```
 
 ##Result value
 The result value object will holds all result data from the calculate method so we know what to do 
