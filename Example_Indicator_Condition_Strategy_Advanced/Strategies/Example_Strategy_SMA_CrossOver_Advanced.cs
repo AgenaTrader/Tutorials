@@ -17,34 +17,29 @@ using AgenaTrader.Helper;
 /// Simon Pucher 2016
 /// Christian Kovar 2016
 /// -------------------------------------------------------------------------
-/// This indicator provides entry and exit signals on time.
-/// Long signal in every even minute. Short signal every odd minute.
-/// You can use this indicator also as a template for further script development.
-/// -------------------------------------------------------------------------
-/// ****** Important ******
-/// To compile this script without any error you also need access to the utility indicator to use global source code elements.
-/// You will find this script on GitHub: https://github.com/simonpucher/AgenaTrader/blob/master/Utility/GlobalUtilities_Utility.cs
+/// This strategy provides provides entry and exit signals for a SMA crossover.
+/// Long  Signal when SMA20 crosses SMA50 above. Plot is set to  1
+/// Short Signal wenn SMA20 crosses SMA50 below. Plot is set to -1
+/// StopLoss and Target is set for 1%
+/// You can use this strategy also as a template for further script development.
 /// -------------------------------------------------------------------------
 /// Namespace holds all indicators and is required. Do not change it.
 /// </summary>
 namespace AgenaTrader.UserCode
 {
-    [Description("This indicator provides a long signal in every even minute and a short signal every odd minute.")]
-    public class DummyOneMinuteEvenOdd_Advanced_Strategy : UserStrategy, IDummyOneMinuteEvenOdd_Advanced
-	{
-        //interface
-        private bool _IsShortEnabled = true;
-        private bool _IsLongEnabled = true;
-        private bool _WarningOccured = false;
-        private bool _ErrorOccured = false;
+    [Description("Basic indicator example for SMA crossover")]
+    public class Example_Strategy_SMA_CrossOver_Advanced : UserStrategy
+    {
 
         //input
         private bool _autopilot = true;
+        private bool _IsLongEnabled = true;
+        private bool _IsShortEnabled = true;
 
         //output
 
         //internal
-        private DummyOneMinuteEvenOdd_Advanced_Indicator _DummyOneMinuteEvenOdd_Advanced_Indicator = null;
+        private Example_Indicator_SMA_CrossOver_Advanced _Example_Indicator_SMA_CrossOver_Advanced = null;
         private IOrder _orderenterlong;
         private IOrder _orderentershort;
 
@@ -56,7 +51,7 @@ namespace AgenaTrader.UserCode
             //if you start the strategy on a chart the TimeFrame is automatically set, this will lead to a better usability
             if (this.TimeFrame == null || this.TimeFrame.PeriodicityValue == 0)
             {
-                this.TimeFrame = new TimeFrame(DatafeedHistoryPeriodicity.Minute, 1);
+                this.TimeFrame = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
             }
 
             //Because of Backtesting reasons if we use the advanced mode we need at least two bars
@@ -75,10 +70,8 @@ namespace AgenaTrader.UserCode
             base.OnStartUp();
 
             //Init our indicator to get code access to the calculate method
-            this._DummyOneMinuteEvenOdd_Advanced_Indicator = new DummyOneMinuteEvenOdd_Advanced_Indicator();
+            this._Example_Indicator_SMA_CrossOver_Advanced = new Example_Indicator_SMA_CrossOver_Advanced();
 
-            this.ErrorOccured = false;
-            this.WarningOccured = false;
         }
 
 		protected override void OnBarUpdate()
@@ -87,29 +80,19 @@ namespace AgenaTrader.UserCode
             this.IsAutomated = this.Autopilot;
 
             //Check if peridocity is valid for this script
-            if (!this._DummyOneMinuteEvenOdd_Advanced_Indicator.DatafeedPeriodicityIsValid(Bars.TimeFrame))
+            if (!this._Example_Indicator_SMA_CrossOver_Advanced.DatafeedPeriodicityIsValid(Bars.TimeFrame))
             {
-                //Display warning just one time
-                if (!this.WarningOccured)
-                {
-                    Log(this.DisplayName + ": " + Const.DefaultStringDatafeedPeriodicity, InfoLogLevel.Warning);
-                    this.WarningOccured = true;
-                }
+                Log(this.DisplayName + ": Periodicity of your data feed is suboptimal for this indicator!", InfoLogLevel.AlertLog);
                 return;
             }
 
             //Lets call the calculate method and save the result with the trade action
-            ResultValue returnvalue = this._DummyOneMinuteEvenOdd_Advanced_Indicator.calculate(Bars[0], this.IsLongEnabled, this.IsShortEnabled);
+            ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(Bars[0], this.IsLongEnabled, this.IsShortEnabled);
 
             //If the calculate method was not finished we need to stop and show an alert message to the user.
             if (returnvalue.ErrorOccured)
             {
-                //Display error just one time
-                if (!this.ErrorOccured)
-                {
-                    Log(this.DisplayName + ": " + Const.DefaultStringErrorDuringCalculation, InfoLogLevel.AlertLog);
-                    this.ErrorOccured = true;
-                }
+                Log(this.DisplayName + ": A problem has occured during the calculation method!", InfoLogLevel.AlertLog);
                 return;
             }
 
@@ -150,7 +133,7 @@ namespace AgenaTrader.UserCode
         {
             if (_orderenterlong == null)
             {
-                _orderenterlong = EnterLong(GlobalUtilities.AdjustPositionToRiskManagement(this.Root.Core.AccountManager, this.Root.Core.PreferenceManager, this.Instrument, Bars[0].Close), this.DisplayName + "_" + OrderAction.Buy + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
+                _orderenterlong = EnterLong(this.DefaultQuantity, this.DisplayName + "_" + OrderAction.Buy + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
                 //SetStopLoss(_orderenterlong.Name, CalculationMode.Price, this._orb_indicator.RangeLow, false);
                 //SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, this._orb_indicator.TargetLong); 
             }
@@ -163,7 +146,7 @@ namespace AgenaTrader.UserCode
         {
             if (_orderentershort == null)
             {
-                _orderentershort = EnterShort(GlobalUtilities.AdjustPositionToRiskManagement(this.Root.Core.AccountManager, this.Root.Core.PreferenceManager, this.Instrument, Bars[0].Close), this.DisplayName + "_" + OrderAction.SellShort + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
+                _orderentershort = EnterShort(this.DefaultQuantity, this.DisplayName + "_" + OrderAction.SellShort + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
                 //SetStopLoss(_orderentershort.Name, CalculationMode.Price, this._orb_indicator.RangeHigh, false);
                 //SetProfitTarget(_orderentershort.Name, CalculationMode.Price, this._orb_indicator.TargetShort);
             }
@@ -193,23 +176,40 @@ namespace AgenaTrader.UserCode
             }
         }
 
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader chart window)
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return "Dummy one minute even/odd (S)";
+            return "Example SMA CrossOver Advanced";
         }
 
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)
+        /// </summary>
         public override string DisplayName
         {
             get
             {
-                return "Dummy one minute even/odd (S)";
+                return "Example SMA CrossOver Advanced";
             }
         }
 
 
         #region Properties
 
-        #region Interface
+      
+        #region Input
+
+        [Description("If true the strategy will handle everything. It will create buy orders, sell orders, stop loss orders, targets fully automatically")]
+        [Category("Safety first!")]
+        [DisplayName("Autopilot")]
+        public bool Autopilot
+        {
+            get { return _autopilot; }
+            set { _autopilot = value; }
+        }
 
         /// <summary>
         /// </summary>
@@ -235,37 +235,7 @@ namespace AgenaTrader.UserCode
         }
 
 
-        [Browsable(false)]
-        [XmlIgnore()]
-        public bool ErrorOccured
-        {
-            get { return _ErrorOccured; }
-            set { _ErrorOccured = value; }
-        }
 
-        [Browsable(false)]
-        [XmlIgnore()]
-        public bool WarningOccured
-        {
-            get { return _WarningOccured; }
-            set { _WarningOccured = value; }
-        }
-
-        #endregion
-
-        #region Input
-
-        [Description("If true the strategy will handle everything. It will create buy orders, sell orders, stop loss orders, targets fully automatically")]
-        [Category("Safety first!")]
-        [DisplayName("Autopilot")]
-        public bool Autopilot
-        {
-            get { return _autopilot; }
-            set { _autopilot = value; }
-        }
-
-
-       
 
         #endregion
 
