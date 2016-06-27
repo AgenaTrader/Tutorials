@@ -13,23 +13,31 @@ In many cases we are starting with indicators because indicators are the best pl
 You will be able to get pretty quick an indication if your trading idea is working and of course you are able to screen instruments visual and verify if your trading idea will be profitable.
 
 ##Result value
-The result value object will holds all result data from the calculate method so we know what to do 
-In a strategy we create a long or short order, in a condition we set the Occured object, and so on.
-In our example we use our global result value object, of course you can use your own class if you need more properties.
+The result value object will holds all result data from the calculate method so we know what to do. In a strategy we create long or short orders, in a condition we set the Occured object, and so on. In our example we use our global result value object, of course you can use your own class if you need more properties.
 ```C#
-public class ResultValue{
-   /* Here we define all properties we need as a result of the calculate method. */
-}
+    /// <summary>
+    /// Class which holds all important data like the OrderAction. 
+    /// We use this object as a global default return object for the calculate method in indicators.
+    /// </summary>
+    public class ResultValue_Example_Indicator_SMA_CrossOver_Advanced
+    {
+        public bool ErrorOccured = false;
+        public OrderAction? Entry = null;
+        public OrderAction? Exit = null;
+        public double Price = 0.0;
+        public double Slow = 0.0;
+        public double Fast = 0.0;
+    }
 ```
 
 ##Method calculate
 We want to capsulate the main logic into one main methods in the indicator. In our case we do this using the following public method in the indicator.
 
 ```C#
-public ResultValueDummyOneMinuteEvenOdd calculate(IBar data, bool islongenabled, bool isshortenabled) {
+ public ResultValue_Example_Indicator_SMA_CrossOver_Advanced calculate(IDataSeries data, int fastsma, int slowsma, bool islongenabled, bool isshortenabled) {
    /* 
-   * Here we do all the smart work and in the end we return our result object
-   * So the condition or another scripts knows what to do (e.g. a strategy will create an order in the market)
+   * Here we do all the smart work and in the end we return our result object.
+   * So the calling scripts knows what to do (e.g. a strategy will create an order in the market, the condition will create a signal, and so on).
    */
 }
 ```
