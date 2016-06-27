@@ -12,14 +12,14 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
 /// <summary>
-/// Version: 1.1.3
+/// Version: 1.2
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
 /// -------------------------------------------------------------------------
 /// This strategy provides provides entry and exit signals for a SMA crossover.
-/// Long  Signal when SMA20 crosses SMA50 above. Plot is set to  1
-/// Short Signal wenn SMA20 crosses SMA50 below. Plot is set to -1
+/// Long  Signal when fast SMA crosses slow SMA above. Plot is set to  1
+/// Short Signal wenn fast SMA crosses slow SMA below. Plot is set to -1
 /// StopLoss and Target is set for 1%
 /// You can use this strategy also as a template for further script development.
 /// -------------------------------------------------------------------------
@@ -35,6 +35,8 @@ namespace AgenaTrader.UserCode
         private bool _autopilot = true;
         private bool _IsLongEnabled = true;
         private bool _IsShortEnabled = true;
+        private int _fastsma = 20;
+        private int _slowsma = 50;
 
         //output
 
@@ -45,6 +47,8 @@ namespace AgenaTrader.UserCode
 
 		protected override void Initialize()
 		{
+            //Define if the OnBarUpdate method should be triggered only on BarClose (=end of period)
+            //or with each price update
             CalculateOnBarClose = true;
 
             //Set the default time frame if you start the strategy via the strategy-escort
@@ -55,8 +59,8 @@ namespace AgenaTrader.UserCode
             }
 
             //Because of Backtesting reasons if we use the advanced mode we need at least two bars
-            this.BarsRequired = 2;
-		}
+            this.BarsRequired = 50;
+        }
 
         protected override void InitRequirements()
         {
@@ -87,7 +91,7 @@ namespace AgenaTrader.UserCode
             }
 
             //Lets call the calculate method and save the result with the trade action
-            ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(Bars[0], this.IsLongEnabled, this.IsShortEnabled);
+            ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(this.Input, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
 
             //If the calculate method was not finished we need to stop and show an alert message to the user.
             if (returnvalue.ErrorOccured)
@@ -182,7 +186,7 @@ namespace AgenaTrader.UserCode
         /// <returns></returns>
         public override string ToString()
         {
-            return "Example SMA CrossOver Advanced";
+            return "Example SMA CrossOver Advanced (S)";
         }
 
         /// <summary>
@@ -192,15 +196,38 @@ namespace AgenaTrader.UserCode
         {
             get
             {
-                return "Example SMA CrossOver Advanced";
+                return "Example SMA CrossOver Advanced (S)";
             }
         }
 
 
         #region Properties
 
-      
+
         #region Input
+
+        /// <summary>
+        /// </summary>
+        [Description("The period of the fast SMA indicator.")]
+        [Category("Parameters")]
+        [DisplayName("Period fast")]
+        public int FastSma
+        {
+            get { return _fastsma; }
+            set { _fastsma = value; }
+        }
+
+
+        /// <summary>
+        /// </summary>
+        [Description("The period of the slow SMA indicator.")]
+        [Category("Parameters")]
+        [DisplayName("Period slow")]
+        public int SlowSma
+        {
+            get { return _slowsma; }
+            set { _slowsma = value; }
+        }
 
         [Description("If true the strategy will handle everything. It will create buy orders, sell orders, stop loss orders, targets fully automatically")]
         [Category("Safety first!")]
