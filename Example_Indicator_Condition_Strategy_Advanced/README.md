@@ -102,7 +102,8 @@ else
 Of course we are following the same procedure as in our condition. We create a variable of the indicator class, we initalize this variable during the OnStartUp() method and we use the object in our OnBarUpdate() method.
 Please pay attention because of backtesting reasons if we use the advanced mode we need at least two bars!
 ```C#
-this.BarsRequired = 2;
+//Because of Backtesting reasons if we use the advanced mode we need at least two bars
+this.BarsRequired = 50;
 ```
 We use IsAutomated = true to decide if the strategy will do all work fully automated. In this case the strategy can be used in strategy escort and will create entry & exit orders automatically.
 
