@@ -105,6 +105,13 @@ Please pay attention because of backtesting reasons if we use the advanced mode 
 //Because of Backtesting reasons if we use the advanced mode we need at least two bars
 this.BarsRequired = 50;
 ```
+If you start the strategy on a chart the TimeFrame is automatically set. If you start this strategy with the strategy escort it would be a smart idea to set a default TimeFrame, this will lead to a better usability. We do this by adding the default TimeFrame in the Initialize() method.
+```C#
+if (this.TimeFrame == null || this.TimeFrame.PeriodicityValue == 0)
+{
+    this.TimeFrame = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
+}
+```
 We use IsAutomated = true to decide if the strategy will do all work fully automated. In this case the strategy can be used in strategy escort and will create entry & exit orders automatically.
 
 In the end of the strategy file there are four methods: DoEnterLong(), DoEnterShort(), DoExitLong() and DoExitShort()
