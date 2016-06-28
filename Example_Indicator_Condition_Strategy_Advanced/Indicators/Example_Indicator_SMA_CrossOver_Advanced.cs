@@ -12,14 +12,14 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
 /// <summary>
-/// Version: 1.2
+/// Version: 1.2.1
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
 /// -------------------------------------------------------------------------
 /// This indicator provides entry and exit signals for a SMA crossover.
-/// Long  Signal when fast SMA crosses slow SMA above. Plot is set to  1
-/// Short Signal wenn fast SMA crosses slow SMA below. Plot is set to -1
+/// Long  Signal when fast SMA crosses slow SMA above. Plot is set to  1.
+/// Short Signal wenn fast SMA crosses slow SMA below. Plot is set to -1.
 /// You can use this indicator also as a template for further script development.
 /// -------------------------------------------------------------------------
 /// Namespace holds all indicators and is required. Do not change it.
@@ -127,26 +127,20 @@ namespace AgenaTrader.UserCode
             this.Indicator_Curve_Fast.Set(returnvalue.Fast);
             this.Indicator_Curve_Slow.Set(returnvalue.Slow);
 
-            ////Entry
-            //if (returnvalue.Entry.HasValue)
-            //{
-            //    switch (returnvalue.Entry)
-            //    {
-            //        case OrderAction.Buy:
-            //            //DrawDot("ArrowLong_Entry" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, this.Plot0Color);
-            //            this.Indicator_Curve_Entry.Set(1);
-            //            break;
-            //        case OrderAction.SellShort:
-            //            //DrawDiamond("ArrowShort_Entry" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, this.Plot0Color);
-            //            this.Indicator_Curve_Entry.Set(-1);
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    //Value was null so nothing to do.
-            //    this.Indicator_Curve_Entry.Set(0);
-            //}
+            //Entry
+            if (returnvalue.Entry.HasValue)
+            {
+                switch (returnvalue.Entry)
+                {
+                    case OrderAction.Buy:
+                        DrawDot("ArrowLong_Entry" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, Color.Orange);
+                        break;
+                    case OrderAction.SellShort:
+                        DrawDiamond("ArrowShort_Entry" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, Color.Orange);
+                        break;
+                }
+            }
+
 
             ////Exit
             //if (returnvalue.Exit.HasValue)
@@ -154,20 +148,14 @@ namespace AgenaTrader.UserCode
             //    switch (returnvalue.Exit)
             //    {
             //        case OrderAction.BuyToCover:
-            //            //DrawDiamond("ArrowShort_Exit" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, this.Plot1Color);
-            //            this.Indicator_Curve_Exit.Set(-0.5);
+            //            DrawDiamond("ArrowShort_Exit" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, Color.Orange);
             //            break;
             //        case OrderAction.Sell:
-            //            //DrawDot("ArrowLong_Exit" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, this.Plot1Color);
-            //            this.Indicator_Curve_Exit.Set(0.5);
+            //            DrawDot("ArrowLong_Exit" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, Color.Orange);
             //            break;
             //    }
             //}
-            //else
-            //{
-            //    //Value was null so nothing to do.
-            //    this.Indicator_Curve_Exit.Set(0);
-            //}
+
 
             //Set the drawing style, if the user has changed it.
             PlotColors[0][0] = this.Plot0Color;
@@ -176,14 +164,6 @@ namespace AgenaTrader.UserCode
             PlotColors[1][0] = this.Plot1Color;
             Plots[1].PenStyle = this.Dash0Style;
             Plots[1].Pen.Width = this.Plot0Width;
-        }
-
-        /// <summary>
-        /// Is called if the indicator stops.
-        /// </summary>
-        protected override void OnTermination()
-        {
-            //Print("OnTermination");
         }
 
 
@@ -201,20 +181,17 @@ namespace AgenaTrader.UserCode
             //try catch block with all calculations
             try
             {
+                //Calculate SMA and set the data into the result object
                 returnvalue.Fast = SMA(data, fastsma)[0];
                 returnvalue.Slow = SMA(data, slowsma)[0];
                 returnvalue.Price = data.Last();
 
-                //the value of SMA20 is calculated with the statemend "SMA(20)"
-                //the value of SMA50 is calculated with the statemend "SMA(50)"
-                //the internal function CrossAbove checks if the two values are crossing above
-                //CrossAbove takes the following parameters for the calculation and returns either "true" or "false":
-                //CrossAbove(double value, IDataSeries series1, int lookBackPeriod)
-                //lookBackPeriod defines the number of previous bars which should be considered 
-                //if lookBackPeriod is 0, it just checks for the current bar
+                /*
+                 * CrossAbove: We create buy (entry) signal for the long position and BuyToCover (exit) for the short position.
+                 * CrossBelow: We create sell (exit) signal for the long positon and SellShort (entry) for the short position.
+                 */
                 if (CrossAbove(SMA(data, fastsma), SMA(data, slowsma), 0) == true)
                 {
-                    //set the value of the plot to "1" to inidcate a long signal
                     if (islongenabled)
                     {
                         returnvalue.Entry = OrderAction.Buy;
@@ -225,10 +202,8 @@ namespace AgenaTrader.UserCode
                     }
                    
                 }
-                //the internal function CrossBelow checks if the two values are crossing below
                 else if (CrossBelow(SMA(data, fastsma), SMA(data, slowsma), 0) == true)
                 {
-                    //set the value of the plot to "-1" to inidcate a short signal
                     if (islongenabled)
                     {
                         returnvalue.Exit = OrderAction.Sell;

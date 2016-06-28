@@ -12,16 +12,16 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
 /// <summary>
-/// Version: 1.2
+/// Version: 1.2.1
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
 /// -------------------------------------------------------------------------
 /// This strategy provides provides entry and exit signals for a SMA crossover.
-/// Long  Signal when fast SMA crosses slow SMA above. Plot is set to  1
-/// Short Signal wenn fast SMA crosses slow SMA below. Plot is set to -1
-/// StopLoss and Target is set for 1%
-/// You can use this strategy also as a template for further script development.
+/// Long  Signal when fast SMA crosses slow SMA above. Plot is set to  1.
+/// Short Signal wenn fast SMA crosses slow SMA below. Plot is set to -1.
+/// StopLoss is set to 1% and Target is set to 3%
+/// You can use this indicator also as a template for further script development.
 /// -------------------------------------------------------------------------
 /// Namespace holds all indicators and is required. Do not change it.
 /// </summary>
@@ -60,12 +60,6 @@ namespace AgenaTrader.UserCode
 
             //Because of Backtesting reasons if we use the advanced mode we need at least two bars
             this.BarsRequired = 50;
-        }
-
-        protected override void InitRequirements()
-        {
-            //Print("InitRequirements");
-            base.InitRequirements();
         }
 
 
@@ -138,8 +132,12 @@ namespace AgenaTrader.UserCode
             if (_orderenterlong == null)
             {
                 _orderenterlong = EnterLong(this.DefaultQuantity, this.DisplayName + "_" + OrderAction.Buy + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
-                //SetStopLoss(_orderenterlong.Name, CalculationMode.Price, this._orb_indicator.RangeLow, false);
-                //SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, this._orb_indicator.TargetLong); 
+                
+                //set a stop loss for our order. we set it 1% below the current price
+                SetStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
+
+                //set a target for our order. we set it 3% above the current price
+                SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.05);
             }
         }
 
@@ -151,8 +149,12 @@ namespace AgenaTrader.UserCode
             if (_orderentershort == null)
             {
                 _orderentershort = EnterShort(this.DefaultQuantity, this.DisplayName + "_" + OrderAction.SellShort + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
-                //SetStopLoss(_orderentershort.Name, CalculationMode.Price, this._orb_indicator.RangeHigh, false);
-                //SetProfitTarget(_orderentershort.Name, CalculationMode.Price, this._orb_indicator.TargetShort);
+
+                //set a stop loss for our order. we set it 1% above the current price
+                SetStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
+
+                //set a target for our order. we set it 3% below the current price
+                SetProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.95);
             }
         }
 

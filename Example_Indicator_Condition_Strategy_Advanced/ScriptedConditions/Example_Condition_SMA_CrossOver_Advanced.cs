@@ -12,15 +12,15 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
 /// <summary>
-/// Version: 1.2
+/// Version: 1.2.1
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
 /// -------------------------------------------------------------------------
 /// This scripted condition provides entry and exit signals for a SMA crossover.
-/// Long  Signal when fast SMA crosses slow SMA above. Plot is set to  1
-/// Short Signal wenn fast SMA crosses slow SMA below. Plot is set to -1
-/// You can use this scripted condition also as a template for further script development.
+/// Long  Signal when fast SMA crosses slow SMA above. Plot is set to  1.
+/// Short Signal wenn fast SMA crosses slow SMA below. Plot is set to -1.
+/// You can use this indicator also as a template for further script development.
 /// -------------------------------------------------------------------------
 /// Namespace holds all indicators and is required. Do not change it.
 /// </summary>
@@ -47,8 +47,6 @@ namespace AgenaTrader.UserCode
 
         //internal
         private Example_Indicator_SMA_CrossOver_Advanced _Example_Indicator_SMA_CrossOver_Advanced = null;
-        private IOrder _orderenterlong;
-        private IOrder _orderentershort;
 
         private int _myvalue = 1;
 
@@ -74,14 +72,12 @@ namespace AgenaTrader.UserCode
 
         protected override void InitRequirements()
         {
-            //Print("InitRequirements");
             base.InitRequirements();
         }
 
 
         protected override void OnStartUp()
         {
-            //Print("OnStartUp");
             base.OnStartUp();
 
             //Init our indicator to get code access to the calculate method
