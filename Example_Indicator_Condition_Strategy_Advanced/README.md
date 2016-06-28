@@ -126,18 +126,25 @@ Plots[0].Pen.Width = this.Plot0Width;
 ##DisplayName and ToString()
 In each script we override the ToString() method and the DisplayName property to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader. In parentheses we add and C for Condition, I for Indicator, A for Alert and S for Strategy to ensure that we can distinguish between the scripts (e.g. if we are editing on indicator and condition in charts).
 ```C#
-public override string ToString()
-{
-   return "Dummy one minute even/odd (C)";
-}
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader chart window)
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "Example SMA CrossOver Advanced (I)";
+        }
 
-public override string DisplayName
-{
-get
-{
-   return "Dummy one minute even/odd (C)";
-}
-}
+        /// <summary>
+        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)
+        /// </summary>
+        public override string DisplayName
+        {
+            get
+            {
+                return "Example SMA CrossOver Advanced (I)";
+            }
+        }
 ```
 
 #Files
