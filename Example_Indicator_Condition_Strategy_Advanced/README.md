@@ -48,27 +48,27 @@ If we get the OrderAction.Buy as a Entry result, we need to start a long order i
 
 #Condition
 We have finished our indicator so we can start now to work on our condition. 
-Because we have added a calculate method with our trading concept we just need a reference to our indicator and we are almost finished.
+Because we already have added our trading concept in the calculate methode in the indicator we just need a reference to our indicator and we are almost done.
 ```C#
 //internal
-private DummyOneMinuteEvenOdd_Indicator _DummyOneMinuteEvenOdd_Indicator = null;
+private Example_Indicator_SMA_CrossOver_Advanced _Example_Indicator_SMA_CrossOver_Advanced = null;
 ```
 
 We need to initalize this variable in our OnStartUp() method:
 ```C#
 protected override void OnStartUp()
 {
-   //Print("OnStartUp");
-   base.OnStartUp();
-   //Init our indicator to get code access to the calculate method
-   this._DummyOneMinuteEvenOdd_Indicator = new DummyOneMinuteEvenOdd_Indicator();
+     base.OnStartUp();
+
+     //Init our indicator to get code access to the calculate method
+     this._Example_Indicator_SMA_CrossOver_Advanced = new Example_Indicator_SMA_CrossOver_Advanced();
 }
 ```
 
 Now we are ready to use the calculate method of the indicator in our OnBarUpdate() method of the condition:
 ```C#
 //Lets call the calculate method and save the result with the trade action
-ResultValueDummyOneMinuteEvenOdd returnvalue = this._DummyOneMinuteEvenOdd_Indicator.calculate(Bars[0], this.IsLongEnabled, this.IsShortEnabled);
+ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(this.Input, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
 ```
 
 In the code snippet above we see that the return value of the calculate method is our result object from the beginning of this tutorial. So we just need to evaluate this object.
@@ -77,24 +77,24 @@ In the code snippet above we see that the return value of the calculate method i
 if (returnvalue.Entry.HasValue)
 {
    switch (returnvalue.Entry)
-   {
-   case OrderAction.Buy:
-      //Long Signal
-      Occurred.Set(1);
-      //Entry.Set(Close[0]);
-      break;
-   case OrderAction.SellShort:
-      //Short Signal
-      Occurred.Set(-1);
-      //Entry.Set(Close[0]);
-      break;
-   }
+    {
+        case OrderAction.Buy:
+            //Long Signal
+            Occurred.Set(1);
+            Entry.Set(1);
+            break;
+        case OrderAction.SellShort:
+            //Short Signal
+            Occurred.Set(-1);
+            Entry.Set(-1);
+            break;
+    }
 }
 else
 {
    //No Signal
    Occurred.Set(0);
-   //Entry.Set(Close[0]);
+   Entry.Set(0);
 }
 ```
 
