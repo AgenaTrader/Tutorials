@@ -111,7 +111,7 @@ In these methods we implement all rules for the creation of orders.
 
 #Miscellaneous
 ##Filenames and Class names
-To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name.
+Please be aware that class names must be unique. To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the name of the c# class.
 
 ##Color and drawing style
 If the user has changed the color or the drawing style of the script (indicator or condition) we need to change the setting during the OnBarUpdate() method.
