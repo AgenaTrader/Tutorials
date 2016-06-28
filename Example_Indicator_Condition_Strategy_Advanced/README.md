@@ -113,6 +113,15 @@ In these methods we implement all rules for the creation of orders.
 ##Filenames and Class names
 To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name.
 
+##Color and drawing style
+If the user has changed the color or the drawing style of the script (indicator or condition) we need to change the setting during the OnBarUpdate() method.
+```C#
+//Set the drawing style, if the user has changed it.
+PlotColors[0][0] = this.Plot0Color;
+Plots[0].PenStyle = this.Dash0Style;
+Plots[0].Pen.Width = this.Plot0Width;
+```
+
 ##DisplayName and ToString()
 In each script we override the ToString() method and the DisplayName property to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader. In parentheses we add and C for Condition, I for Indicator, A for Alert and S for Strategy to ensure that we can distinguish between the scripts (e.g. if we are editing on indicator and condition in charts).
 ```C#
