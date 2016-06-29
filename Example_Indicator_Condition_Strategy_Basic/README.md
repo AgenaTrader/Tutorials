@@ -139,8 +139,8 @@ In each script we override the ToString() method and the DisplayName to provide 
 ```
 
 #Files
-[Indicator](https://github.com/AgenaTrader/Tutorials/blob/master/Example_Indicator_Condition_Strategy_Basic/Indicators/Example_Indicator_SMA_CrossOver_Basic.cs)
+[Indicator](https://raw.githubusercontent.com/AgenaTrader/Tutorials/master/Example_Indicator_Condition_Strategy_Basic/Indicators/Example_Indicator_SMA_CrossOver_Basic.cs)
 
-[Condition](https://github.com/AgenaTrader/Tutorials/blob/master/Example_Indicator_Condition_Strategy_Basic/ScriptedConditions/Example_Condition_SMA_CrossOver_Basic.cs)
+[Condition](https://raw.githubusercontent.com/AgenaTrader/Tutorials/master/Example_Indicator_Condition_Strategy_Basic/ScriptedConditions/Example_Condition_SMA_CrossOver_Basic.cs)
 
-[Strategy](https://github.com/AgenaTrader/Tutorials/blob/master/Example_Indicator_Condition_Strategy_Basic/Strategies/Example_Strategy_SMA_CrossOver_Basic.cs)
+[Strategy](https://raw.githubusercontent.com/AgenaTrader/Tutorials/master/Example_Indicator_Condition_Strategy_Basic/Strategies/Example_Strategy_SMA_CrossOver_Basic.cs)
