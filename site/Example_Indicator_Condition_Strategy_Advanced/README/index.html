@@ -159,12 +159,12 @@ You will be able to get pretty quick an indication if your trading idea is worki
 <p>The result value object will holds all result data from the calculate method so we know what to do. In a strategy we create long or short orders, in a condition we set the Occured object, and so on. In our example we use our global result value object, of course you can use your own class if you need more properties.</p>
 <pre><code class="cs">public class ResultValue_Example_Indicator_SMA_CrossOver_Advanced
 {
-public bool ErrorOccured = false;
-public OrderAction? Entry = null;
-public OrderAction? Exit = null;
-public double Price = 0.0;
-public double Slow = 0.0;
-public double Fast = 0.0;
+    public bool ErrorOccured = false;
+    public OrderAction? Entry = null;
+    public OrderAction? Exit = null;
+    public double Price = 0.0;
+    public double Slow = 0.0;
+    public double Fast = 0.0;
 }
 </code></pre>
 
