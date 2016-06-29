@@ -3,6 +3,6 @@
 
 These two tutorials will show you two templates for indicators, conditions, strategies and give you the ability to have a quick start into AgenaTrader scripting.
 
-[Basic](./Example_Indicator_Condition_Strategy_Basic/README.md)
+[Basic Template](./Example_Indicator_Condition_Strategy_Basic/README.md)
 
-[Advanced](./Example_Indicator_Condition_Strategy_Advanced/README.md)
+[Advanced Template](./Example_Indicator_Condition_Strategy_Advanced/README.md)
