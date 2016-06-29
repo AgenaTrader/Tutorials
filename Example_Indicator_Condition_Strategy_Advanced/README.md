@@ -109,7 +109,8 @@ else
 Of course we are following the same procedure as in our condition. We create a variable of the indicator class, we initalize this variable during the OnStartUp() method and we use the object in our OnBarUpdate() method.
 Please pay attention because of backtesting reasons if we use the advanced mode we need at least two bars!
 ```C#
-//Because of Backtesting reasons if we use the advanced mode we need at least two bars
+//Because of backtesting reasons if we use the advanced mode we need at least two bars!
+//In this case we are using SMA50, so we need at least 50 bars.
 this.BarsRequired = 50;
 ```
 If you start the strategy on a chart the TimeFrame is automatically set. If you start this strategy with the strategy escort it would be a smart idea to set a default TimeFrame, this will lead to a better usability. We do this by adding the default TimeFrame in the Initialize() method.
