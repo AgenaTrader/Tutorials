@@ -1,9 +1,9 @@
 #Download files
-[Indicator](https://raw.githubusercontent.com/AgenaTrader/Tutorials/master/Example_Indicator_Condition_Strategy_Advanced/Indicators/Example_Indicator_SMA_CrossOver_Advanced.cs)
+[Indicator](./Indicators/Example_Indicator_SMA_CrossOver_Advanced.cs)
 
-[Condition](https://raw.githubusercontent.com/AgenaTrader/Tutorials/master/Example_Indicator_Condition_Strategy_Advanced/ScriptedConditions/Example_Condition_SMA_CrossOver_Advanced.cs)
+[Condition](./ScriptedConditions/Example_Condition_SMA_CrossOver_Advanced.cs)
 
-[Strategy](https://raw.githubusercontent.com/AgenaTrader/Tutorials/master/Example_Indicator_Condition_Strategy_Advanced/Strategies/Example_Strategy_SMA_CrossOver_Advanced.cs)
+[Strategy](./Strategies/Example_Strategy_SMA_CrossOver_Advanced.cs)
 
 #Template for Indicator, Condition and Strategy
 [Originally posted as a question in the Agenatrader forum](http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&t=2680&p=11739)
@@ -21,6 +21,7 @@ You will be able to get pretty quick an indication if your trading idea is worki
 
 ##Result value
 The result value object will holds all result data from the calculate method so we know what to do. In a strategy we create long or short orders, in a condition we set the Occured object, and so on. In our example we use our global result value object, of course you can use your own class if you need more properties.
+
 ```C#
     /// <summary>
     /// Class which holds all important data like the OrderAction. 
@@ -56,12 +57,14 @@ If we get the OrderAction.Buy as a Entry result, we need to start a long order i
 #Condition
 We have finished our indicator so we can start now to work on our condition. 
 Because we already have added our trading concept in the calculate methode in the indicator we just need a reference to our indicator and we are almost done.
+
 ```C#
 //internal
 private Example_Indicator_SMA_CrossOver_Advanced _Example_Indicator_SMA_CrossOver_Advanced = null;
 ```
 
 We need to initalize this variable in our OnStartUp() method:
+
 ```C#
 protected override void OnStartUp()
 {
@@ -73,12 +76,14 @@ protected override void OnStartUp()
 ```
 
 Now we are ready to use the calculate method of the indicator in our OnBarUpdate() method of the condition:
+
 ```C#
 //Lets call the calculate method and save the result with the trade action
 ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(this.Input, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
 ```
 
 In the code snippet above we see that the return value of the calculate method is our result object from the beginning of this tutorial. So we just need to evaluate this object.
+
 ```C#
 //Entry
 if (returnvalue.Entry.HasValue)
@@ -108,18 +113,22 @@ else
 #Strategy
 Of course we are following the same procedure as in our condition. We create a variable of the indicator class, we initalize this variable during the OnStartUp() method and we use the object in our OnBarUpdate() method.
 Please pay attention because of backtesting reasons if we use the advanced mode we need at least two bars!
+
 ```C#
 //Because of backtesting reasons if we use the advanced mode we need at least two bars!
 //In this case we are using SMA50, so we need at least 50 bars.
 this.BarsRequired = 50;
 ```
+
 If you start the strategy on a chart the TimeFrame is automatically set. If you start this strategy with the strategy escort it would be a smart idea to set a default TimeFrame, this will lead to a better usability. We do this by adding the default TimeFrame in the Initialize() method.
+
 ```C#
 if (this.TimeFrame == null || this.TimeFrame.PeriodicityValue == 0)
 {
     this.TimeFrame = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
 }
 ```
+
 We use IsAutomated = true to decide if the strategy will do all work fully automated. In this case the strategy can be used in strategy escort and will create entry & exit orders automatically.
 
 In the end of the strategy file there are four methods: DoEnterLong(), DoEnterShort(), DoExitLong() and DoExitShort()
@@ -131,6 +140,7 @@ Please be aware that class names must be unique. To import all scripts into Agen
 
 ##Color and drawing style
 If the user has changed the color or the drawing style of the script (indicator or condition) we need to change the setting during the OnBarUpdate() method.
+
 ```C#
 //Set the drawing style, if the user has changed it.
 PlotColors[0][0] = this.Plot0Color;
@@ -140,6 +150,7 @@ Plots[0].Pen.Width = this.Plot0Width;
 
 ##DisplayName and ToString()
 In each script we override the ToString() method and the DisplayName property to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader. In parentheses we add and C for Condition, I for Indicator, A for Alert and S for Strategy to ensure that we can distinguish between the scripts (e.g. if we are editing on indicator and condition in charts).
+
 ```C#
         /// <summary>
         /// defines display name of indicator (e.g. in AgenaTrader chart window)

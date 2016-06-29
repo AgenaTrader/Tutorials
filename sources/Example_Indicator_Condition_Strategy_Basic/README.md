@@ -1,9 +1,9 @@
 #Download files
-[Indicator](https://raw.githubusercontent.com/AgenaTrader/Tutorials/master/Example_Indicator_Condition_Strategy_Basic/Indicators/Example_Indicator_SMA_CrossOver_Basic.cs)
+[Indicator](./Indicators/Example_Indicator_SMA_CrossOver_Basic.cs)
 
-[Condition](https://raw.githubusercontent.com/AgenaTrader/Tutorials/master/Example_Indicator_Condition_Strategy_Basic/ScriptedConditions/Example_Condition_SMA_CrossOver_Basic.cs)
+[Condition](./ScriptedConditions/Example_Condition_SMA_CrossOver_Basic.cs)
 
-[Strategy](https://raw.githubusercontent.com/AgenaTrader/Tutorials/master/Example_Indicator_Condition_Strategy_Basic/Strategies/Example_Strategy_SMA_CrossOver_Basic.cs)
+[Strategy](./Strategies/Example_Strategy_SMA_CrossOver_Basic.cs)
 
 #Template for Indicator, Condition and Strategy
 [Originally posted as a question in the Agenatrader forum](http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&t=2680&p=11739)
@@ -16,6 +16,7 @@ You will be able to get pretty quick an indication if your trading idea is worki
 
 ##OnBarUpdate
 Our main logic will be inside of the OnBarUpdate() method. In our example we are using SMA to get long and short signals. If the SMA20 is crossing above the SMA50 we get a long signal. If the SMA20 is crossing below the SMA50 we create a short signal.
+
 ```C#
 protected override void OnBarUpdate()
 {
@@ -48,6 +49,7 @@ protected override void OnBarUpdate()
 #Condition
 ##OnBarUpdate
 Also in this case the main logic is inside of the OnBarUpdate() method. Because our main logic is inside of the indicator itself we need to create an instance of this indicator. So we are able to get the data from the indicator and set our Occured object.
+
 ```C#
 protected override void OnBarUpdate()
 {
@@ -114,6 +116,7 @@ protected override void OnBarUpdate()
 #Miscellaneous
 ##Bars required
 Because of backtesting reasons if we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the Initialize() method.
+
 ```C#
 this.BarsRequired = 50;
 ```
@@ -123,6 +126,7 @@ To import all scripts into AgenaTrader without any error we add _indicator, _str
 
 ##DisplayName and ToString()
 In each script we override the ToString() method and the DisplayName to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader.
+
 ```C#
         /// <summary>
         /// defines display name of indicator (e.g. in AgenaTrader chart window)
