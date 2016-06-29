@@ -1,3 +1,5 @@
+To get started, check out: [https://agenatrader.github.io/Tutorials/](https://agenatrader.github.io/Tutorials/)
+
 #Template for Indicator, Condition and Strategy
 [Originally posted as a question in the Agenatrader forum](http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&t=2680&p=11739)
 
