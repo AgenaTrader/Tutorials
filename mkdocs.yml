@@ -1,5 +1,4 @@
-site_name: AgenaScript Docs
+site_name: AgenaTrader Tutorials
 docs_dir: sources
 pages:
-    - Home: index.md
-    - About: about.md
+    - 'Home': 'index.md'
