@@ -12,7 +12,7 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
 /// <summary>
-/// Version: 1.2.1
+/// Version: 1.2.2
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
@@ -66,13 +66,9 @@ namespace AgenaTrader.UserCode
             //Condition should be drawn on a seperate panel
             Overlay = false;
 
-            //Because of Backtesting reasons if we use the advanced mode we need at least two bars
+            //Because of backtesting reasons if we use the advanced mode we need at least two bars!
+			//In this case we are using SMA50, so we need at least 50 bars.
             this.BarsRequired = 50;
-        }
-
-        protected override void InitRequirements()
-        {
-            base.InitRequirements();
         }
 
 
