@@ -12,7 +12,7 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
 /// <summary>
-/// Version: 1.2.1
+/// Version: 1.2.2
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
@@ -58,7 +58,8 @@ namespace AgenaTrader.UserCode
                 this.TimeFrame = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
             }
 
-            //Because of Backtesting reasons if we use the advanced mode we need at least two bars
+            //Because of backtesting reasons if we use the advanced mode we need at least two bars!
+			//In this case we are using SMA50, so we need at least 50 bars.
             this.BarsRequired = 50;
         }
 
