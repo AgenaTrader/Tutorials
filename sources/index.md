@@ -1,8 +1,8 @@
 #Welcome to the AgenaTrader tutorial!
 Want to learn more about the AgenaTrader scripting language? We've got the resources to help you get started. Start by browsing the tutorials on the list below.
 If you have any questions, feedback for us or you have particular wishes please do not hesitate to contact us:
-* [GitHub Simon](@simonpucher), [Twitter Simon](https://twitter.com/SimonPucher)
-* [GitHub Christian](@ckovar82), [Twitter Christian](https://twitter.com/ckovar82)
+* @simonpucher, [Twitter Simon](https://twitter.com/SimonPucher)
+* @ckovar82, [Twitter Christian](https://twitter.com/ckovar82)
 
 #Tutorials
 ##Examples for Indicator, Condition and Strategy
