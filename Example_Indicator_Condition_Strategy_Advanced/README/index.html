@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+	<title>Advanced - AgenaTrader Tutorials</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">AgenaTrader Tutorials</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../Example_Indicator_Condition_Strategy_Basic/README/">Basic</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Advanced</a>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../../Example_Indicator_Condition_Strategy_Basic/README/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a rel="prev" >
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#download-files">Download files</a></li>
+        
+    
+        <li class="main "><a href="#template-for-indicator-condition-and-strategy">Template for Indicator, Condition and Strategy</a></li>
+        
+            <li><a href="#why-do-we-want-this">Why do we want this?</a></li>
+        
+    
+        <li class="main "><a href="#indicator">Indicator</a></li>
+        
+            <li><a href="#result-value">Result value</a></li>
+        
+    
+        <li class="main "><a href="#condition">Condition</a></li>
+        
+    
+        <li class="main "><a href="#strategy">Strategy</a></li>
+        
+    
+        <li class="main "><a href="#miscellaneous">Miscellaneous</a></li>
+        
+            <li><a href="#filenames-and-class-names">Filenames and Class names</a></li>
+        
+            <li><a href="#color-and-drawing-style">Color and drawing style</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="download-files">Download files</h1>
+<p><a href="../Indicators/Example_Indicator_SMA_CrossOver_Advanced.cs">Indicator</a></p>
+<p><a href="../ScriptedConditions/Example_Condition_SMA_CrossOver_Advanced.cs">Condition</a></p>
+<p><a href="../Strategies/Example_Strategy_SMA_CrossOver_Advanced.cs">Strategy</a></p>
+<h1 id="template-for-indicator-condition-and-strategy">Template for Indicator, Condition and Strategy</h1>
+<p><a href="http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&amp;t=2680&amp;p=11739">Originally posted as a question in the Agenatrader forum</a></p>
+<p>This tutorial will show you a templates for indicators, conditions, strategies and give you the ability to communicate between these scripts. This will lead you to more code transparency and reduces your programming time. </p>
+<h2 id="why-do-we-want-this">Why do we want this?</h2>
+<p>AgenaTrader provides you the ability to create indicators, conditions, alerts and strategies in c# and use them during trading. 
+Of course you can start creating an indicator and copy the code afterwards into a condition, a strategy or an alert.
+Programming by using "copy &amp; paste" is easy but on the other hand there are many disadvantages like lack of testing reasons, no single point for bug fixing and low maintainability. </p>
+<h1 id="indicator">Indicator</h1>
+<p>In many cases we are starting with indicators because indicators are the best place to start on script development. 
+You will be able to get pretty quick an indication if your trading idea is working and of course you are able to screen instruments visual and verify if your trading idea will be profitable.</p>
+<h2 id="result-value">Result value</h2>
+<p>The result value object will holds all result data from the calculate method so we know what to do. In a strategy we create long or short orders, in a condition we set the Occured object, and so on. In our example we use our global result value object, of course you can use your own class if you need more properties.</p>
+<p>```C#
+    /// <summary>
+    /// Class which holds all important data like the OrderAction. 
+    /// We use this object as a global default return object for the calculate method in indicators.
+    /// </summary>
+    public class ResultValue_Example_Indicator_SMA_CrossOver_Advanced
+    {
+        public bool ErrorOccured = false;
+        public OrderAction? Entry = null;
+        public OrderAction? Exit = null;
+        public double Price = 0.0;
+        public double Slow = 0.0;
+        public double Fast = 0.0;
+    }</p>
+<pre><code>
+##Method calculate
+We want to capsulate the main logic into one main methods in the indicator. In our case we do this using the following public method in the indicator.
+
+```C#
+ public ResultValue_Example_Indicator_SMA_CrossOver_Advanced calculate(IDataSeries data, int fastsma, int slowsma, bool islongenabled, bool isshortenabled) {
+   /* 
+   * Here we do all the smart work and in the end we return our result object.
+   * So the calling scripts knows what to do (e.g. a strategy will create an order in the market, the condition will create a signal, and so on).
+   */
+}
+</code></pre>
+
+<p>So it is possible that other scripts just need to call the calculate method of the indicator and get a decision what to do. 
+In our case the calculate method return an object which holds all important information what has to be done. 
+If we get the OrderAction.Buy as a Entry result, we need to start a long order in a strategy or we set the condition value to 1.</p>
+<h1 id="condition">Condition</h1>
+<p>We have finished our indicator so we can start now to work on our condition. 
+Because we already have added our trading concept in the calculate methode in the indicator we just need a reference to our indicator and we are almost done.</p>
+<p>```C#
+//internal
+private Example_Indicator_SMA_CrossOver_Advanced _Example_Indicator_SMA_CrossOver_Advanced = null;</p>
+<pre><code>
+We need to initalize this variable in our OnStartUp() method:
+
+```C#
+protected override void OnStartUp()
+{
+     base.OnStartUp();
+
+     //Init our indicator to get code access to the calculate method
+     this._Example_Indicator_SMA_CrossOver_Advanced = new Example_Indicator_SMA_CrossOver_Advanced();
+}
+</code></pre>
+
+<p>Now we are ready to use the calculate method of the indicator in our OnBarUpdate() method of the condition:</p>
+<p>```C#
+//Lets call the calculate method and save the result with the trade action
+ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(this.Input, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);</p>
+<pre><code>
+In the code snippet above we see that the return value of the calculate method is our result object from the beginning of this tutorial. So we just need to evaluate this object.
+
+```C#
+//Entry
+if (returnvalue.Entry.HasValue)
+{
+   switch (returnvalue.Entry)
+    {
+        case OrderAction.Buy:
+            //Long Signal
+            Occurred.Set(1);
+            Entry.Set(1);
+            break;
+        case OrderAction.SellShort:
+            //Short Signal
+            Occurred.Set(-1);
+            Entry.Set(-1);
+            break;
+    }
+}
+else
+{
+   //No Signal
+   Occurred.Set(0);
+   Entry.Set(0);
+}
+</code></pre>
+
+<h1 id="strategy">Strategy</h1>
+<p>Of course we are following the same procedure as in our condition. We create a variable of the indicator class, we initalize this variable during the OnStartUp() method and we use the object in our OnBarUpdate() method.
+Please pay attention because of backtesting reasons if we use the advanced mode we need at least two bars!</p>
+<p>```C#
+//Because of backtesting reasons if we use the advanced mode we need at least two bars!
+//In this case we are using SMA50, so we need at least 50 bars.
+this.BarsRequired = 50;</p>
+<pre><code>
+If you start the strategy on a chart the TimeFrame is automatically set. If you start this strategy with the strategy escort it would be a smart idea to set a default TimeFrame, this will lead to a better usability. We do this by adding the default TimeFrame in the Initialize() method.
+
+```C#
+if (this.TimeFrame == null || this.TimeFrame.PeriodicityValue == 0)
+{
+    this.TimeFrame = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
+}
+</code></pre>
+
+<p>We use IsAutomated = true to decide if the strategy will do all work fully automated. In this case the strategy can be used in strategy escort and will create entry &amp; exit orders automatically.</p>
+<p>In the end of the strategy file there are four methods: DoEnterLong(), DoEnterShort(), DoExitLong() and DoExitShort()
+In these methods we implement all rules for the creation of orders.</p>
+<h1 id="miscellaneous">Miscellaneous</h1>
+<h2 id="filenames-and-class-names">Filenames and Class names</h2>
+<p>Please be aware that class names must be unique. To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the name of the c# class.</p>
+<h2 id="color-and-drawing-style">Color and drawing style</h2>
+<p>If the user has changed the color or the drawing style of the script (indicator or condition) we need to change the setting during the OnBarUpdate() method.</p>
+<p>```C#
+//Set the drawing style, if the user has changed it.
+PlotColors[0][0] = this.Plot0Color;
+Plots[0].PenStyle = this.Dash0Style;
+Plots[0].Pen.Width = this.Plot0Width;</p>
+<pre><code>
+##DisplayName and ToString()
+In each script we override the ToString() method and the DisplayName property to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader. In parentheses we add and C for Condition, I for Indicator, A for Alert and S for Strategy to ensure that we can distinguish between the scripts (e.g. if we are editing on indicator and condition in charts).
+
+```C#
+        /// &lt;summary&gt;
+        /// defines display name of indicator (e.g. in AgenaTrader chart window)
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public override string ToString()
+        {
+            return &quot;Example SMA CrossOver Advanced (I)&quot;;
+        }
+
+        /// &lt;summary&gt;
+        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)
+        /// &lt;/summary&gt;
+        public override string DisplayName
+        {
+            get
+            {
+                return &quot;Example SMA CrossOver Advanced (I)&quot;;
+            }
+        }
+</code></pre></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
