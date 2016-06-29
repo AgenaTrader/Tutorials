@@ -17,16 +17,9 @@ You will be able to get pretty quick an indication if your trading idea is worki
 ##OnBarUpdate
 Our main logic will be inside of the OnBarUpdate() method. In our example we are using SMA to get long and short signals. If the SMA20 is crossing above the SMA50 we get a long signal. If the SMA20 is crossing below the SMA50 we create a short signal.
 
-```c#
+```cs
 protected override void OnBarUpdate()
 {
-            //the value of SMA20 is calculated with the statemend "SMA(20)"
-            //the value of SMA50 is calculated with the statemend "SMA(50)"
-            //the internal function CrossAbove checks if the two values are crossing above
-            //CrossAbove takes the following parameters for the calculation and returns either "true" or "false":
-            //CrossAbove(double value, IDataSeries series1, int lookBackPeriod)
-            //lookBackPeriod defines the number of previous bars which should be considered 
-            //if lookBackPeriod is 0, it just checks for the current bar
             if (CrossAbove(SMA(20), SMA(50), 0) == true)
             {
                 //set the value of the plot to "1" to inidcate a long signal
@@ -50,7 +43,7 @@ protected override void OnBarUpdate()
 ##OnBarUpdate
 Also in this case the main logic is inside of the OnBarUpdate() method. Because our main logic is inside of the indicator itself we need to create an instance of this indicator. So we are able to get the data from the indicator and set our Occured object.
 
-```c#
+```cs
 protected override void OnBarUpdate()
 {
             //get the indicator
@@ -68,7 +61,7 @@ protected override void OnBarUpdate()
 ##OnBarUpdate
 Same procedure as in the condition. We create a fresh instance of the indicator and save the return value into a variable and we call the methods to create orders.
 
-```c#
+```cs
 protected override void OnBarUpdate()
 {
             string uniqueOrderName;
@@ -117,7 +110,7 @@ protected override void OnBarUpdate()
 ##Bars required
 Because of backtesting reasons if we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the Initialize() method.
 
-```c#
+```cs
 this.BarsRequired = 50;
 ```
 
@@ -127,7 +120,7 @@ To import all scripts into AgenaTrader without any error we add _indicator, _str
 ##DisplayName and ToString()
 In each script we override the ToString() method and the DisplayName to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader.
 
-```c#
+```cs
         /// <summary>
         /// defines display name of indicator (e.g. in AgenaTrader chart window)
         /// </summary>

@@ -78,9 +78,19 @@
                     <li><a class="toctree-l4" href="#onbarupdate">OnBarUpdate</a></li>
                 
             
-                <li class="toctree-l3"><a href="#strategy">Strategy</a></li>
+                <li class="toctree-l3"><a href="#condition">Condition</a></li>
                 
                     <li><a class="toctree-l4" href="#onbarupdate_1">OnBarUpdate</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#strategy">Strategy</a></li>
+                
+                    <li><a class="toctree-l4" href="#onbarupdate_2">OnBarUpdate</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#miscellaneous">Miscellaneous</a></li>
+                
+                    <li><a class="toctree-l4" href="#bars-required">Bars required</a></li>
                 
                     <li><a class="toctree-l4" href="#filenames-and-class-names">Filenames and Class names</a></li>
                 
@@ -143,40 +153,31 @@
 You will be able to get pretty quick an indication if your trading idea is working and of course you are able to screen instruments visual and verify if your trading idea will be profitable.</p>
 <h2 id="onbarupdate">OnBarUpdate</h2>
 <p>Our main logic will be inside of the OnBarUpdate() method. In our example we are using SMA to get long and short signals. If the SMA20 is crossing above the SMA50 we get a long signal. If the SMA20 is crossing below the SMA50 we create a short signal.</p>
-<p>```c#
-protected override void OnBarUpdate()
+<pre><code class="cs">protected override void OnBarUpdate()
 {
-            //the value of SMA20 is calculated with the statemend "SMA(20)"
-            //the value of SMA50 is calculated with the statemend "SMA(50)"
-            //the internal function CrossAbove checks if the two values are crossing above
-            //CrossAbove takes the following parameters for the calculation and returns either "true" or "false":
-            //CrossAbove(double value, IDataSeries series1, int lookBackPeriod)
-            //lookBackPeriod defines the number of previous bars which should be considered 
-            //if lookBackPeriod is 0, it just checks for the current bar
             if (CrossAbove(SMA(20), SMA(50), 0) == true)
             {
-                //set the value of the plot to "1" to inidcate a long signal
+                //set the value of the plot to &quot;1&quot; to inidcate a long signal
                 this.SMA_CrossOver.Set(1);
             }
             //the internal function CrossBelow checks if the two values are crossing below
             else if (CrossBelow(SMA(20), SMA(50), 0) == true)
             {
-                //set the value of the plot to "-1" to inidcate a short signal
+                //set the value of the plot to &quot;-1&quot; to inidcate a short signal
                 this.SMA_CrossOver.Set(-1);
             }
             else
             {
-             //set the value of the plot to "0" to inidcate a flat signal
+             //set the value of the plot to &quot;0&quot; to inidcate a flat signal
                 this.SMA_CrossOver.Set(0);
             }
-}</p>
-<pre><code>
-#Condition
-##OnBarUpdate
-Also in this case the main logic is inside of the OnBarUpdate() method. Because our main logic is inside of the indicator itself we need to create an instance of this indicator. So we are able to get the data from the indicator and set our Occured object.
+}
+</code></pre>
 
-```c#
-protected override void OnBarUpdate()
+<h1 id="condition">Condition</h1>
+<h2 id="onbarupdate_1">OnBarUpdate</h2>
+<p>Also in this case the main logic is inside of the OnBarUpdate() method. Because our main logic is inside of the indicator itself we need to create an instance of this indicator. So we are able to get the data from the indicator and set our Occured object.</p>
+<pre><code class="cs">protected override void OnBarUpdate()
 {
             //get the indicator
             Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic = LeadIndicator.Example_Indicator_SMA_CrossOver_Basic();
@@ -190,85 +191,82 @@ protected override void OnBarUpdate()
 </code></pre>
 
 <h1 id="strategy">Strategy</h1>
-<h2 id="onbarupdate_1">OnBarUpdate</h2>
+<h2 id="onbarupdate_2">OnBarUpdate</h2>
 <p>Same procedure as in the condition. We create a fresh instance of the indicator and save the return value into a variable and we call the methods to create orders.</p>
-<p>```c#
-protected override void OnBarUpdate()
+<pre><code class="cs">protected override void OnBarUpdate()
 {
-            string uniqueOrderName;</p>
-<pre><code>        //get the indicator
-        Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic = LeadIndicator.Example_Indicator_SMA_CrossOver_Basic();
+            string uniqueOrderName;
 
-        //get the value
-        double returnvalue = Example_Indicator_SMA_CrossOver_Basic[0];
+            //get the indicator
+            Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic = LeadIndicator.Example_Indicator_SMA_CrossOver_Basic();
 
-        //Entry
-        if (returnvalue == 1)
-        {   
-            //define a unique name for the order. in this example the current bars timestamp
-            uniqueOrderName = "Long_SMA_CrossOver" + Bars[0].Time.ToString();
+            //get the value
+            double returnvalue = Example_Indicator_SMA_CrossOver_Basic[0];
 
-            //create the long order with quantity "1" and our unique OrderName
-            IOrder _orderenterlong = EnterLong(1, uniqueOrderName);
+            //Entry
+            if (returnvalue == 1)
+            {   
+                //define a unique name for the order. in this example the current bars timestamp
+                uniqueOrderName = &quot;Long_SMA_CrossOver&quot; + Bars[0].Time.ToString();
 
-            //set a stop loss for our order. we set it 1% below the current price
-            SetStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
+                //create the long order with quantity &quot;1&quot; and our unique OrderName
+                IOrder _orderenterlong = EnterLong(1, uniqueOrderName);
 
-            //set a target for our order. we set it 1% above the current price
-            SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01);
+                //set a stop loss for our order. we set it 1% below the current price
+                SetStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
+
+                //set a target for our order. we set it 1% above the current price
+                SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01); 
 
 
-        }
-        else if (returnvalue == -1)
-        {
-            //define a unique name for the order. in this example the current bars timestamp
-            uniqueOrderName = "Short_SMA_CrossOver" + Bars[0].Time.ToString();
+            }
+            else if (returnvalue == -1)
+            {
+                //define a unique name for the order. in this example the current bars timestamp
+                uniqueOrderName = &quot;Short_SMA_CrossOver&quot; + Bars[0].Time.ToString();
 
-            //create the short order with quantity "1" and our unique OrderName
-            IOrder _orderentershort = EnterShort(1, uniqueOrderName);
+                //create the short order with quantity &quot;1&quot; and our unique OrderName
+                IOrder _orderentershort = EnterShort(1, uniqueOrderName);
 
-            //set a stop loss for our order. we set it 1% above the current price
-            SetStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
+                //set a stop loss for our order. we set it 1% above the current price
+                SetStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
 
-            //set a target for our order. we set it 1% below the current price
-            SetProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.99);
-        }
+                //set a target for our order. we set it 1% below the current price
+                SetProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.99);
+            }
+}
 </code></pre>
-<p>}</p>
-<pre><code>
-#Miscellaneous
-##Bars required
-Because of backtesting reasons if we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the Initialize() method.
 
-```c#
-this.BarsRequired = 50;
+<h1 id="miscellaneous">Miscellaneous</h1>
+<h2 id="bars-required">Bars required</h2>
+<p>Because of backtesting reasons if we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the Initialize() method.</p>
+<pre><code class="cs">this.BarsRequired = 50;
 </code></pre>
 
 <h2 id="filenames-and-class-names">Filenames and Class names</h2>
 <p>To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different.</p>
 <h2 id="displayname-and-tostring">DisplayName and ToString()</h2>
 <p>In each script we override the ToString() method and the DisplayName to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader.</p>
-<p>```c#
-        /// <summary>
+<pre><code class="cs">        /// &lt;summary&gt;
         /// defines display name of indicator (e.g. in AgenaTrader chart window)
-        /// </summary>
-        /// <returns></returns>
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
         public override string ToString()
         {
-            return "Example SMA CrossOver Basic";
-        }</p>
-<pre><code>    /// &lt;summary&gt;
-    /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)
-    /// &lt;/summary&gt;
-    public override string DisplayName
-    {
-        get
-        {
-            return "Example SMA CrossOver Basic";
+            return &quot;Example SMA CrossOver Basic&quot;;
         }
-    }
+
+        /// &lt;summary&gt;
+        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)
+        /// &lt;/summary&gt;
+        public override string DisplayName
+        {
+            get
+            {
+                return &quot;Example SMA CrossOver Basic&quot;;
+            }
+        }
 </code></pre>
-<p>```</p>
               
             </div>
           </div>
