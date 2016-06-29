@@ -5,21 +5,22 @@
 
 [Strategy](./Strategies/Example_Strategy_SMA_CrossOver_Basic.cs)
 
-#Advanced Template for Indicator, Condition and Strategy
+#Basic Example for Indicator, Condition and Strategy
 [Originally posted as a question in the Agenatrader forum](http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&t=2680&p=11739)
 
-This tutorial will show you a basic template for indicators, conditions and strategies.
+This tutorial will show you a basic example for indicators, conditions and strategies.
 
 #Indicator
-In many cases we are starting with indicators because indicators are the best place to start on script development. 
-You will be able to get pretty quick an indication if your trading idea is working and of course you are able to screen instruments visual and verify if your trading idea will be profitable.
+In many cases we are starting with indicators because indicators are the easiest place to start on script development. 
+You will get a quick indication if your trading idea is working and addionally you can screen your instruments of choice visually and verify if your trading idea will be profitable.
 
 ##OnBarUpdate
-Our main logic will be inside of the OnBarUpdate() method. In our example we are using SMA to get long and short signals. If the SMA20 is crossing above the SMA50 we get a long signal. If the SMA20 is crossing below the SMA50 we create a short signal.
+Our main logic will be inside the OnBarUpdate() method. In our example, we are using the SMA to get long and short signals. If the SMA20 is crossing above the SMA50 we get a long signal. If the SMA20 is crossing below the SMA50 we create a short signal.
 
 ```cs
 protected override void OnBarUpdate()
 {
+            //the internal function CrossAbove checks if the two values are crossing above
             if (CrossAbove(SMA(20), SMA(50), 0) == true)
             {
                 //set the value of the plot to "1" to inidcate a long signal
@@ -41,7 +42,7 @@ protected override void OnBarUpdate()
 
 #Condition
 ##OnBarUpdate
-Also in this case the main logic is inside of the OnBarUpdate() method. Because our main logic is inside of the indicator itself we need to create an instance of this indicator. So we are able to get the data from the indicator and set our Occured object.
+Like in the indicator, the main logic is inside of the OnBarUpdate() method. Because our main logic is inside the indicator itself, we need to create an instance of this very indicator. So we are able to get the data from the indicator and set our "Occured" object.
 
 ```cs
 protected override void OnBarUpdate()
@@ -59,7 +60,7 @@ protected override void OnBarUpdate()
 
 #Strategy
 ##OnBarUpdate
-Same procedure as in the condition. We create a fresh instance of the indicator and save the return value into a variable and we call the methods to create orders.
+Same procedure as in the condition. We create a fresh instance of the indicator and save the return value into a variable. Based on the return value we call the methods to create orders.
 
 ```cs
 protected override void OnBarUpdate()
@@ -108,14 +109,14 @@ protected override void OnBarUpdate()
 
 #Miscellaneous
 ##Bars required
-Because of backtesting reasons if we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the Initialize() method.
+Because of backtesting reasons: If we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the Initialize() method.
 
 ```cs
 this.BarsRequired = 50;
 ```
 
 ##Filenames and Class names
-To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different.
+To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different. It is not possible to have an indicator and condition with the same name, e.g. "SMA_CrossOver". They must have unique names like "SMA_CrossOver_indicator" and "SMA_CrossOver_condition"!
 
 ##DisplayName and ToString()
 In each script we override the ToString() method and the DisplayName to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader.
