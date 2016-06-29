@@ -25,12 +25,12 @@ The result value object will holds all result data from the calculate method so 
 ```cs
 public class ResultValue_Example_Indicator_SMA_CrossOver_Advanced
 {
-public bool ErrorOccured = false;
-public OrderAction? Entry = null;
-public OrderAction? Exit = null;
-public double Price = 0.0;
-public double Slow = 0.0;
-public double Fast = 0.0;
+	public bool ErrorOccured = false;
+	public OrderAction? Entry = null;
+	public OrderAction? Exit = null;
+	public double Price = 0.0;
+	public double Slow = 0.0;
+	public double Fast = 0.0;
 }
 ```
 
