@@ -1,0 +1,44 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Welcome to MkDocs\n\n\nFor full documentation visit \nmkdocs.org\n.\n\n\nCommands\n\n\n\n\nmkdocs new [dir-name]\n - Create a new project.\n\n\nmkdocs serve\n - Start the live-reloading docs server.\n\n\nmkdocs build\n - Build the documentation site.\n\n\nmkdocs help\n - Print this help message.\n\n\n\n\nProject layout\n\n\nmkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#welcome-to-mkdocs", 
+            "text": "For full documentation visit  mkdocs.org .", 
+            "title": "Welcome to MkDocs"
+        }, 
+        {
+            "location": "/#commands", 
+            "text": "mkdocs new [dir-name]  - Create a new project.  mkdocs serve  - Start the live-reloading docs server.  mkdocs build  - Build the documentation site.  mkdocs help  - Print this help message.", 
+            "title": "Commands"
+        }, 
+        {
+            "location": "/#project-layout", 
+            "text": "mkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
+            "title": "Project layout"
+        }, 
+        {
+            "location": "/about/", 
+            "text": "Welcome to MkDocs About\n\n\nThis is a text.\n\n\nWho we are?\n\n\n\n\nnumber 1\n\n\nnumber 2\n\n\n\n\nWhat we do?\n\n\n\n\nnumber 1\n\n\nnumber 2", 
+            "title": "About"
+        }, 
+        {
+            "location": "/about/#welcome-to-mkdocs-about", 
+            "text": "This is a text.", 
+            "title": "Welcome to MkDocs About"
+        }, 
+        {
+            "location": "/about/#who-we-are", 
+            "text": "number 1  number 2", 
+            "title": "Who we are?"
+        }, 
+        {
+            "location": "/about/#what-we-do", 
+            "text": "number 1  number 2", 
+            "title": "What we do?"
+        }
+    ]
+}

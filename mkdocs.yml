@@ -1,0 +1,5 @@
+site_name: AgenaScript Docs
+docs_dir: sources
+pages:
+    - Home: index.md
+    - About: about.md
