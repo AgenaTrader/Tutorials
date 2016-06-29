@@ -22,31 +22,31 @@ You will be able to get pretty quick an indication if your trading idea is worki
 ##Result value
 The result value object will holds all result data from the calculate method so we know what to do. In a strategy we create long or short orders, in a condition we set the Occured object, and so on. In our example we use our global result value object, of course you can use your own class if you need more properties.
 
-```C#
-    /// <summary>
-    /// Class which holds all important data like the OrderAction. 
-    /// We use this object as a global default return object for the calculate method in indicators.
-    /// </summary>
-    public class ResultValue_Example_Indicator_SMA_CrossOver_Advanced
-    {
-        public bool ErrorOccured = false;
-        public OrderAction? Entry = null;
-        public OrderAction? Exit = null;
-        public double Price = 0.0;
-        public double Slow = 0.0;
-        public double Fast = 0.0;
-    }
+```c#
+/// <summary>
+/// Class which holds all important data like the OrderAction. 
+/// We use this object as a global default return object for the calculate method in indicators.
+/// </summary>
+public class ResultValue_Example_Indicator_SMA_CrossOver_Advanced
+{
+public bool ErrorOccured = false;
+public OrderAction? Entry = null;
+public OrderAction? Exit = null;
+public double Price = 0.0;
+public double Slow = 0.0;
+public double Fast = 0.0;
+}
 ```
 
 ##Method calculate
 We want to capsulate the main logic into one main methods in the indicator. In our case we do this using the following public method in the indicator.
 
-```C#
- public ResultValue_Example_Indicator_SMA_CrossOver_Advanced calculate(IDataSeries data, int fastsma, int slowsma, bool islongenabled, bool isshortenabled) {
-   /* 
-   * Here we do all the smart work and in the end we return our result object.
-   * So the calling scripts knows what to do (e.g. a strategy will create an order in the market, the condition will create a signal, and so on).
-   */
+```c#
+public ResultValue_Example_Indicator_SMA_CrossOver_Advanced calculate(IDataSeries data, int fastsma, int slowsma, bool islongenabled, bool isshortenabled) {
+/* 
+* Here we do all the smart work and in the end we return our result object.
+* So the calling scripts knows what to do (e.g. a strategy will create an order in the market, the condition will create a signal, and so on).
+*/
 }
 ```
 
@@ -58,14 +58,14 @@ If we get the OrderAction.Buy as a Entry result, we need to start a long order i
 We have finished our indicator so we can start now to work on our condition. 
 Because we already have added our trading concept in the calculate methode in the indicator we just need a reference to our indicator and we are almost done.
 
-```C#
+```c#
 //internal
 private Example_Indicator_SMA_CrossOver_Advanced _Example_Indicator_SMA_CrossOver_Advanced = null;
 ```
 
 We need to initalize this variable in our OnStartUp() method:
 
-```C#
+```c#
 protected override void OnStartUp()
 {
      base.OnStartUp();
@@ -77,14 +77,14 @@ protected override void OnStartUp()
 
 Now we are ready to use the calculate method of the indicator in our OnBarUpdate() method of the condition:
 
-```C#
+```c#
 //Lets call the calculate method and save the result with the trade action
 ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(this.Input, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
 ```
 
 In the code snippet above we see that the return value of the calculate method is our result object from the beginning of this tutorial. So we just need to evaluate this object.
 
-```C#
+```c#
 //Entry
 if (returnvalue.Entry.HasValue)
 {
@@ -114,7 +114,7 @@ else
 Of course we are following the same procedure as in our condition. We create a variable of the indicator class, we initalize this variable during the OnStartUp() method and we use the object in our OnBarUpdate() method.
 Please pay attention because of backtesting reasons if we use the advanced mode we need at least two bars!
 
-```C#
+```c#
 //Because of backtesting reasons if we use the advanced mode we need at least two bars!
 //In this case we are using SMA50, so we need at least 50 bars.
 this.BarsRequired = 50;
@@ -122,7 +122,7 @@ this.BarsRequired = 50;
 
 If you start the strategy on a chart the TimeFrame is automatically set. If you start this strategy with the strategy escort it would be a smart idea to set a default TimeFrame, this will lead to a better usability. We do this by adding the default TimeFrame in the Initialize() method.
 
-```C#
+```c#
 if (this.TimeFrame == null || this.TimeFrame.PeriodicityValue == 0)
 {
     this.TimeFrame = new TimeFrame(DatafeedHistoryPeriodicity.Day, 1);
