@@ -5,7 +5,7 @@
 
 [Strategy](./Strategies/Example_Strategy_SMA_CrossOver_Basic.cs)
 
-#Template for Indicator, Condition and Strategy
+#Advanced Template for Indicator, Condition and Strategy
 [Originally posted as a question in the Agenatrader forum](http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&t=2680&p=11739)
 
 This tutorial will show you a basic template for indicators, conditions and strategies.

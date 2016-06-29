@@ -1,6 +1,7 @@
 site_name: AgenaTrader Tutorials
 docs_dir: sources
+theme: readthedocs
 pages:
     - 'Home': 'index.md'
-    - 'hidden': 'Example_Indicator_Condition_Strategy_Basic/README.md'
-    - 'hidden': 'Example_Indicator_Condition_Strategy_Advanced/README.md'
+    - 'Basic Template': 'Example_Indicator_Condition_Strategy_Basic/README.md'
+    - 'Advanced Template': 'Example_Indicator_Condition_Strategy_Advanced/README.md'

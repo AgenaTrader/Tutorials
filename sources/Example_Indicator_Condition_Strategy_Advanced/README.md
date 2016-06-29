@@ -5,7 +5,7 @@
 
 [Strategy](./Strategies/Example_Strategy_SMA_CrossOver_Advanced.cs)
 
-#Template for Indicator, Condition and Strategy
+#Basic Template for Indicator, Condition and Strategy
 [Originally posted as a question in the Agenatrader forum](http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&t=2680&p=11739)
 
 This tutorial will show you a templates for indicators, conditions, strategies and give you the ability to communicate between these scripts. This will lead you to more code transparency and reduces your programming time. 
