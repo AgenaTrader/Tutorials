@@ -15,17 +15,17 @@ The following things are prerequisites:
 Clone the master repository to your local computer.
 
 Tutorials are written in markdown format and stored in the sources directory of this repository.
-To parse these markdown files into static websites the mkdocs parser need a configuration file. All configuration is done in a single [YAML configuration file](mkdocs.yml).
-Open Console, navigate to your YAML file and build the markdown files using the mkdocs build command.
+To parse these markdown files into static websites we need mkdocs to do this work for us. mkdocs will parse these markdown files, translate it into static websites and store it into the site directory.
+All configuration is done in a single [YAML configuration file](mkdocs.yml) to configure the parsing process.
+Open Console, navigate to your YAML configuration file and build the markdown files using the mkdocs build command.
 ```bash
 mkdocs build
 ```
 This will create a new directory named *site*.
-If you are getting a warning that the *site directory* has already created you can use the `clean` parameter to delete this directory before recreation.
+If you are getting a warning that the *site directory* has already created, you can use the `clean` parameter to delete this directory before recreation.
 ```bash
 mkdocs build --clean
 ```
-
 We have created a branch called *gh-pages* and all data from this branch will be displayed on GitHub Pages.
 Commit now your changes into the master repository, sync your repository and *change locally to the branch gh-pages*. Update all changes from master into the branch using the GitHub Client function *upate from master*.
 
