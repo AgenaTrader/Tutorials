@@ -20,14 +20,14 @@ Open Console, navigate to your YAML file and build the markdown files using the 
 ```bash
 mkdocs build
 ```
-This will create a new directory named `site`.
-If you are getting a warning that the `site`directory has already created you can use the `cleanup` command to clear this directory before.
+This will create a new directory named *site*.
+If you are getting a warning that the *site directory* has already created you can use the `clean` parameter to delete this directory before recreation.
 ```bash
 mkdocs build --clean
 ```
 
-We have created a branch called `gh-pages`. All data from this branch will be displayed on GitHub Pages.
-Commit now your changes into the master repository, sync your repository and change locally to the branch `gh-pages`. Update all changes from master into the branch using the GitHub Client function `upate from master`.
+We have created a branch called *gh-pages* and all data from this branch will be displayed on GitHub Pages.
+Commit now your changes into the master repository, sync your repository and *change locally to the branch gh-pages*. Update all changes from master into the branch using the GitHub Client function *upate from master*.
 
-Congrats! We are done. All changes are online on GitHub Pages.
+Congrats! We are done. All changes are now online on GitHub Pages.
  
