@@ -7,11 +7,13 @@ Documentation source files are written in [Markdown](https://guides.github.com/f
 The tutorials in the sources directory of this repository, are built with mkdocs and publicly hosted on GitHub Pages at [https://agenatrader.github.io/Tutorials/](https://agenatrader.github.io/Tutorials/).
 
 ##Getting Started
+###Installation
 The following things are prerequisites:
 * Install [GitHub Client](https://desktop.github.com) and create a GitHub user
 * Install [Python](https://www.python.org/downloads/)
 * Install Python package [mkdocs](http://www.mkdocs.org) using pip
 
+###Parsing markdown to static website
 Clone the master repository to your local computer.
 
 Tutorials are written in markdown format and stored in the sources directory of this repository.
