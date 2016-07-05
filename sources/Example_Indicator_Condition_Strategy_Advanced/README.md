@@ -1,11 +1,11 @@
 #Download files
-[Indicator](./Indicators/Example_Indicator_SMA_CrossOver_Advanced.cs)
+[Advanced Indicator](./Indicators/Example_Indicator_SMA_CrossOver_Advanced.cs)
 
-[Condition](./ScriptedConditions/Example_Condition_SMA_CrossOver_Advanced.cs)
+[Advanced Condition](./ScriptedConditions/Example_Condition_SMA_CrossOver_Advanced.cs)
 
-[Strategy](./Strategies/Example_Strategy_SMA_CrossOver_Advanced.cs)
+[Advanced Strategy](./Strategies/Example_Strategy_SMA_CrossOver_Advanced.cs)
 
-#Basic Example for Indicator, Condition and Strategy
+#Advanced Example for Indicator, Condition and Strategy
 [Originally posted as a question in the Agenatrader forum](http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&t=2680&p=11739)
 
 This tutorial will show you an advanced example for indicators, conditions, strategies and give you the ability to communicate between these scripts. This will lead you to more code transparency and reduces your programming time. 
