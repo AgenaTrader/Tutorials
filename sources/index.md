@@ -1,5 +1,5 @@
 
-![AgenaTrader](./images/logo_300.png)
+![AgenaTrader](./images/logo_100.png)
 
 #Welcome to the AgenaTrader tutorial!
 Want to learn more about the AgenaTrader scripting language? We've got the resources to help you get started. Start by browsing the tutorials on the list below.
