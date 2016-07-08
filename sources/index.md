@@ -1,5 +1,5 @@
 
-![AgenaTrader](https://octodex.github.com/images/yaktocat.png)
+![AgenaTrader](./images/logo_300.png)
 
 #Welcome to the AgenaTrader tutorial!
 Want to learn more about the AgenaTrader scripting language? We've got the resources to help you get started. Start by browsing the tutorials on the list below.
