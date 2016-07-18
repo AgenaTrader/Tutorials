@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to the AgenaTrader tutorial!\n\n\nWant to learn more about the AgenaTrader scripting language? We've got the resources to help you get started. Start by browsing the tutorials on the list below.\n\n\nTutorials\n\n\nExamples for Indicator, Condition and Strategy\n\n\nThese two tutorials will show you two examples for indicators, conditions, strategies and give you the ability to have a quick start into AgenaTrader scripting.\n- \nBasic Example\n\n- \nAdvanced Example\n\n\nContact us\n\n\nIf you have any questions, feedback for us or you have particular wishes please do not hesitate to contact us:\n- \nGitHub Simon\n or \nTwitter Simon\n\n- \nGitHub Christian\n or \nTwitter Christian", 
+            "text": "Welcome to the AgenaTrader tutorial!\n\n\nWant to learn more about the AgenaTrader scripting language? We've got the resources to help you get started. Start by browsing the tutorials on the list below.\n\n\nTutorials\n\n\nExamples for Indicator, Condition and Strategy\n\n\nThese two tutorials will show you two examples for indicators, conditions, strategies and give you the ability to have a quick start into AgenaTrader scripting.\n\n \nBasic Example\n\n\n \nAdvanced Example\n\n\nContact us\n\n\nIf you have any questions, feedback for us or you have particular wishes please do not hesitate to contact us:\n\n \nGitHub Simon\n or \nTwitter Simon\n\n\n \nGitHub Christian\n or \nTwitter Christian", 
             "title": "Lets start"
         }, 
         {
@@ -17,12 +17,12 @@
         }, 
         {
             "location": "/#examples-for-indicator-condition-and-strategy", 
-            "text": "These two tutorials will show you two examples for indicators, conditions, strategies and give you the ability to have a quick start into AgenaTrader scripting.\n-  Basic Example \n-  Advanced Example", 
+            "text": "These two tutorials will show you two examples for indicators, conditions, strategies and give you the ability to have a quick start into AgenaTrader scripting.   Basic Example    Advanced Example", 
             "title": "Examples for Indicator, Condition and Strategy"
         }, 
         {
             "location": "/#contact-us", 
-            "text": "If you have any questions, feedback for us or you have particular wishes please do not hesitate to contact us:\n-  GitHub Simon  or  Twitter Simon \n-  GitHub Christian  or  Twitter Christian", 
+            "text": "If you have any questions, feedback for us or you have particular wishes please do not hesitate to contact us:   GitHub Simon  or  Twitter Simon    GitHub Christian  or  Twitter Christian", 
             "title": "Contact us"
         }, 
         {
