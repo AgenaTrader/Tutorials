@@ -87,8 +87,13 @@
         }, 
         {
             "location": "/Example_Indicator_Condition_Strategy_Basic/README/#displayname-and-tostring", 
-            "text": "In each script we override the ToString() method and the DisplayName to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader.          ///  summary \n        /// defines display name of indicator (e.g. in AgenaTrader chart window)\n        ///  /summary \n        ///  returns /returns \n        public override string ToString()\n        {\n            return  Example SMA CrossOver Basic ;\n        }\n\n        ///  summary \n        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)\n        ///  /summary \n        public override string DisplayName\n        {\n            get\n            {\n                return  Example SMA CrossOver Basic ;\n            }\n        }  Autors     Simon Pucher  Christian Kovar          Twitter  Twitter    GitHub  GitHub", 
+            "text": "In each script we override the ToString() method and the DisplayName to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader.          ///  summary \n        /// defines display name of indicator (e.g. in AgenaTrader chart window)\n        ///  /summary \n        ///  returns /returns \n        public override string ToString()\n        {\n            return  Example SMA CrossOver Basic ;\n        }\n\n        ///  summary \n        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)\n        ///  /summary \n        public override string DisplayName\n        {\n            get\n            {\n                return  Example SMA CrossOver Basic ;\n            }\n        }", 
             "title": "DisplayName and ToString()"
+        }, 
+        {
+            "location": "/Example_Indicator_Condition_Strategy_Basic/README/#autors", 
+            "text": "Simon Pucher  Christian Kovar          Twitter  Twitter    GitHub  GitHub", 
+            "title": "Autors"
         }, 
         {
             "location": "/Example_Indicator_Condition_Strategy_Advanced/README/", 
@@ -152,8 +157,13 @@
         }, 
         {
             "location": "/Example_Indicator_Condition_Strategy_Advanced/README/#displayname-and-tostring", 
-            "text": "In each script we override the ToString() method and the DisplayName property to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader. In parentheses we add and C for Condition, I for Indicator, A for Alert and S for Strategy to ensure that we can distinguish between the scripts (e.g. if we are editing on indicators or conditions in charts).          ///  summary \n        /// defines display name of indicator (e.g. in AgenaTrader chart window)\n        ///  /summary \n        ///  returns /returns \n        public override string ToString()\n        {\n            return  Example SMA CrossOver Advanced (I) ;\n        }\n\n        ///  summary \n        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)\n        ///  /summary \n        public override string DisplayName\n        {\n            get\n            {\n                return  Example SMA CrossOver Advanced (I) ;\n            }\n        }  Autors     Simon Pucher  Christian Kovar          Twitter  Twitter    GitHub  GitHub", 
+            "text": "In each script we override the ToString() method and the DisplayName property to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader. In parentheses we add and C for Condition, I for Indicator, A for Alert and S for Strategy to ensure that we can distinguish between the scripts (e.g. if we are editing on indicators or conditions in charts).          ///  summary \n        /// defines display name of indicator (e.g. in AgenaTrader chart window)\n        ///  /summary \n        ///  returns /returns \n        public override string ToString()\n        {\n            return  Example SMA CrossOver Advanced (I) ;\n        }\n\n        ///  summary \n        /// defines display name of indicator (e.g. in AgenaTrader indicator selection window)\n        ///  /summary \n        public override string DisplayName\n        {\n            get\n            {\n                return  Example SMA CrossOver Advanced (I) ;\n            }\n        }", 
             "title": "DisplayName and ToString()"
+        }, 
+        {
+            "location": "/Example_Indicator_Condition_Strategy_Advanced/README/#autors", 
+            "text": "Simon Pucher  Christian Kovar          Twitter  Twitter    GitHub  GitHub", 
+            "title": "Autors"
         }
     ]
 }
