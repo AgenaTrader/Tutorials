@@ -168,6 +168,7 @@ In each script we override the ToString() method and the DisplayName property to
 ```
 
 **Autors**
+
 |               |                 |
 |     :---:     |      :---:      |
 | ![Simon Pucher](../images/user_simon_pucher_100.jpeg) | ![Christian Kovar](../images/user_christian_kovar_100.jpg) |
