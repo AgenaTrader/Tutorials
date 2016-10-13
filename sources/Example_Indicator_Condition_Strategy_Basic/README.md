@@ -144,6 +144,8 @@ In each script we override the ToString() method and the DisplayName to provide 
 ```
 
 **Autors**
+
+|     :---:      |     :---:      |     :---:      |
 | ![Simon Pucher](../images/user_simon_pucher_100.jpeg) | ![Christian Kovar](../images/user_christian_kovar_100.jpg) |
 | [Twitter Simon](https://twitter.com/SimonPucher) |  [Twitter Christian](https://twitter.com/ckovar82) |
 | Simon Pucher | Christian Kovar |
