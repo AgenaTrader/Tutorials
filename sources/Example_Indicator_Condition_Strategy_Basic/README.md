@@ -143,8 +143,7 @@ In each script we override the ToString() method and the DisplayName to provide 
         }
 ```
 
-**Autors**
-
+#Autors
 |  Simon Pucher |  Christian Kovar   |
 |     :---:     |      :---:      |
 | ![Simon Pucher](../images/user_simon_pucher_100.jpeg) | ![Christian Kovar](../images/user_christian_kovar_100.jpg) |
