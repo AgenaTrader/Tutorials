@@ -11,7 +11,7 @@
 This tutorial will show you a basic example for indicators, conditions and strategies.
 
 #Indicator
-In many cases we are starting with indicators because indicators are the easiest place to start on script development. 
+In many cases we are starting with indicators because indicators are the easiest place to start on script development.
 You will get a quick indication if your trading idea is working and addionally you can screen your instruments of choice visually and verify if your trading idea will be profitable.
 
 ##OnBarUpdate
@@ -86,7 +86,7 @@ protected override void OnBarUpdate()
                 SetStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
 
                 //set a target for our order. we set it 1% above the current price
-                SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01); 
+                SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01);
 
 
             }
@@ -116,7 +116,7 @@ this.BarsRequired = 50;
 ```
 
 ##Filenames and Class names
-To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different. It is not possible to have an indicator and condition with the same name, e.g. "SMA_CrossOver". They must have unique names like "SMA_CrossOver_indicator" and "SMA_CrossOver_condition"!
+To import all scripts into AgenaTrader without any error we add "indicator", "strategy", "condition" or "alert" to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different. It is not possible to have an indicator and condition with the same name, e.g. "SMA_CrossOver". They must have unique names like "SMA_CrossOver_indicator" and "SMA_CrossOver_condition"!
 
 ##DisplayName and ToString()
 In each script we override the ToString() method and the DisplayName to provide a readable string in AgenaTrader. So we do see a readable string instead of the class name in AgenaTrader.
@@ -142,3 +142,8 @@ In each script we override the ToString() method and the DisplayName to provide 
             }
         }
 ```
+
+**Autors**
+| ![Simon Pucher](../images/user_simon_pucher_100.jpeg) | ![Christian Kovar](../images/user_christian_kovar_100.jpg) |
+| [Twitter Simon](https://twitter.com/SimonPucher) |  [Twitter Christian](https://twitter.com/ckovar82) |
+| Simon Pucher | Christian Kovar |

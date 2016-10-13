@@ -8,12 +8,12 @@
 #Advanced Example for Indicator, Condition and Strategy
 [Originally posted as a question in the Agenatrader forum](http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&t=2680&p=11739)
 
-This tutorial will show you an advanced example for indicators, conditions, strategies and give you the ability to communicate between these scripts. This will lead you to more code transparency and reduces your programming time. 
+This tutorial will show you an advanced example for indicators, conditions, strategies and give you the ability to communicate between these scripts. This will lead you to more code transparency and reduces your programming time.
 
 ##Why do we want this?
-AgenaTrader provides you the ability to create indicators, conditions, alerts and strategies in c# and use them during trading. 
+AgenaTrader provides you the ability to create indicators, conditions, alerts and strategies in c# and use them during trading.
 Of course, you can start creating an indicator and copy the code afterwards into a condition, a strategy or an alert.
-Programming by using "copy & paste" is easy but on the other hand there are many disadvantages like lack of testing reasons, no single point for bug fixing and low maintainability. 
+Programming by using "copy & paste" is easy but on the other hand there are many disadvantages like lack of testing reasons, no single point for bug fixing and low maintainability.
 
 #Indicator
 In many cases we are starting with indicators because indicators are the easiest place to start on script development. You will get a quick indication if your trading idea is working and addionally you can screen your instruments of choice visually and verify if your trading idea will be profitable.
@@ -38,19 +38,19 @@ We want to encapsulate the main logic into one main method in the indicator. In 
 
 ```cs
 public ResultValue_Example_Indicator_SMA_CrossOver_Advanced calculate(IDataSeries data, int fastsma, int slowsma, bool islongenabled, bool isshortenabled) {
-/* 
+/*
 * Here we do all the smart work and in the end we return our result object.
 * So the calling scripts knows what to do (e.g. a strategy will create an order in the market, the condition will create a signal, and so on).
 */
 }
 ```
 
-So it is possible that other scripts just call the "calculate" method of the indicator and get a decision of what to do. 
-In our case the "calculate" method returns an object which holds all important information what has to be done. 
+So it is possible that other scripts just call the "calculate" method of the indicator and get a decision of what to do.
+In our case the "calculate" method returns an object which holds all important information what has to be done.
 If we get the "OrderAction.Buy" as an "Entry" result, we need to start a long order in a strategy or we set the condition value to 1.
 
 #Condition
-As we have finished our indicator, we can start working on our condition. 
+As we have finished our indicator, we can start working on our condition.
 Because we already have added our trading concept in the "calculate" method in the indicator, we just need a reference to our indicator and we are almost done.
 
 ```cs
@@ -130,7 +130,7 @@ In these methods we implement all rules for the creation of orders.
 
 #Miscellaneous
 ##Filenames and Class names
-To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different. It is not possible to have an indicator and condition with the same name, e.g. "SMA_CrossOver". They must have unique names like "SMA_CrossOver_indicator" and "SMA_CrossOver_condition"!
+To import all scripts into AgenaTrader without any error we add "indicator", "strategy", "condition" or "alert" to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different. It is not possible to have an indicator and condition with the same name, e.g. "SMA_CrossOver". They must have unique names like "SMA_CrossOver_indicator" and "SMA_CrossOver_condition"!
 
 ##Color and drawing style
 If the user has changed the color or the drawing style of the script (indicator or condition) we need to change the setting during the OnBarUpdate() method.
@@ -166,3 +166,8 @@ In each script we override the ToString() method and the DisplayName property to
             }
         }
 ```
+
+**Autors**
+| ![Simon Pucher](../images/user_simon_pucher_100.jpeg) | ![Christian Kovar](../images/user_christian_kovar_100.jpg) |
+| [Twitter Simon](https://twitter.com/SimonPucher) |  [Twitter Christian](https://twitter.com/ckovar82) |
+| Simon Pucher | Christian Kovar |
