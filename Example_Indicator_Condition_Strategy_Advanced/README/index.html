@@ -153,11 +153,11 @@
 <p><a href="../Strategies/Example_Strategy_SMA_CrossOver_Advanced.cs">Advanced Strategy</a></p>
 <h1 id="advanced-example-for-indicator-condition-and-strategy">Advanced Example for Indicator, Condition and Strategy</h1>
 <p><a href="http://www.tradeescort.com/phpbb_de/viewtopic.php?f=18&amp;t=2680&amp;p=11739">Originally posted as a question in the Agenatrader forum</a></p>
-<p>This tutorial will show you an advanced example for indicators, conditions, strategies and give you the ability to communicate between these scripts. This will lead you to more code transparency and reduces your programming time. </p>
+<p>This tutorial will show you an advanced example for indicators, conditions, strategies and give you the ability to communicate between these scripts. This will lead you to more code transparency and reduces your programming time.</p>
 <h2 id="why-do-we-want-this">Why do we want this?</h2>
-<p>AgenaTrader provides you the ability to create indicators, conditions, alerts and strategies in c# and use them during trading. 
+<p>AgenaTrader provides you the ability to create indicators, conditions, alerts and strategies in c# and use them during trading.
 Of course, you can start creating an indicator and copy the code afterwards into a condition, a strategy or an alert.
-Programming by using "copy &amp; paste" is easy but on the other hand there are many disadvantages like lack of testing reasons, no single point for bug fixing and low maintainability. </p>
+Programming by using "copy &amp; paste" is easy but on the other hand there are many disadvantages like lack of testing reasons, no single point for bug fixing and low maintainability.</p>
 <h1 id="indicator">Indicator</h1>
 <p>In many cases we are starting with indicators because indicators are the easiest place to start on script development. You will get a quick indication if your trading idea is working and addionally you can screen your instruments of choice visually and verify if your trading idea will be profitable.</p>
 <h2 id="result-value">Result value</h2>
@@ -176,18 +176,18 @@ Programming by using "copy &amp; paste" is easy but on the other hand there are 
 <h2 id="method-calculate">Method calculate</h2>
 <p>We want to encapsulate the main logic into one main method in the indicator. In our case we do this using the following public method in the indicator.</p>
 <pre><code class="cs">public ResultValue_Example_Indicator_SMA_CrossOver_Advanced calculate(IDataSeries data, int fastsma, int slowsma, bool islongenabled, bool isshortenabled) {
-/* 
+/*
 * Here we do all the smart work and in the end we return our result object.
 * So the calling scripts knows what to do (e.g. a strategy will create an order in the market, the condition will create a signal, and so on).
 */
 }
 </code></pre>
 
-<p>So it is possible that other scripts just call the "calculate" method of the indicator and get a decision of what to do. 
-In our case the "calculate" method returns an object which holds all important information what has to be done. 
+<p>So it is possible that other scripts just call the "calculate" method of the indicator and get a decision of what to do.
+In our case the "calculate" method returns an object which holds all important information what has to be done.
 If we get the "OrderAction.Buy" as an "Entry" result, we need to start a long order in a strategy or we set the condition value to 1.</p>
 <h1 id="condition">Condition</h1>
-<p>As we have finished our indicator, we can start working on our condition. 
+<p>As we have finished our indicator, we can start working on our condition.
 Because we already have added our trading concept in the "calculate" method in the indicator, we just need a reference to our indicator and we are almost done.</p>
 <pre><code class="cs">private Example_Indicator_SMA_CrossOver_Advanced _Example_Indicator_SMA_CrossOver_Advanced = null;
 </code></pre>
@@ -253,7 +253,7 @@ this.BarsRequired = 50;
 In these methods we implement all rules for the creation of orders.</p>
 <h1 id="miscellaneous">Miscellaneous</h1>
 <h2 id="filenames-and-class-names">Filenames and Class names</h2>
-<p>To import all scripts into AgenaTrader without any error we add _indicator, _strategy, _condition or _alert to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different. It is not possible to have an indicator and condition with the same name, e.g. "SMA_CrossOver". They must have unique names like "SMA_CrossOver_indicator" and "SMA_CrossOver_condition"!</p>
+<p>To import all scripts into AgenaTrader without any error we add "indicator", "strategy", "condition" or "alert" to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different. It is not possible to have an indicator and condition with the same name, e.g. "SMA_CrossOver". They must have unique names like "SMA_CrossOver_indicator" and "SMA_CrossOver_condition"!</p>
 <h2 id="color-and-drawing-style">Color and drawing style</h2>
 <p>If the user has changed the color or the drawing style of the script (indicator or condition) we need to change the setting during the OnBarUpdate() method.</p>
 <pre><code class="cs">//Set the drawing style, if the user has changed it.
@@ -284,6 +284,11 @@ Plots[0].Pen.Width = this.Plot0Width;
             }
         }
 </code></pre>
+
+<p><strong>Autors</strong>
+| <img alt="Simon Pucher" src="../../images/user_simon_pucher_100.jpeg" /> | <img alt="Christian Kovar" src="../../images/user_christian_kovar_100.jpg" /> |
+| <a href="https://twitter.com/SimonPucher">Twitter Simon</a> |  <a href="https://twitter.com/ckovar82">Twitter Christian</a> |
+| Simon Pucher | Christian Kovar |</p>
               
             </div>
           </div>
