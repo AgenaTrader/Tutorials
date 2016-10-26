@@ -23,7 +23,7 @@ using AgenaTrader.Helper;
 /// -------------------------------------------------------------------------
 /// ****** Important ******
 /// To compile this script without any error you also need access to the utility indicator to use global source code elements.
-/// You will find this script on GitHub: https://github.com/simonpucher/AgenaTrader/blob/master/Utility/GlobalUtilities_Utility.cs
+/// You will find this script on GitHub: https://github.com/ScriptTrading/Basic-Package/blob/master/Utilities/GlobalUtilities_Utility.cs
 /// -------------------------------------------------------------------------
 /// Namespace holds all indicators and is required. Do not change it.
 /// </summary>
@@ -39,7 +39,7 @@ namespace AgenaTrader.UserCode
 
 
 		protected override void Initialize()
-		{ 
+		{
             CalculateOnBarClose = true;
 
             //Set the default time frame if you start the strategy via the strategy-escort
@@ -103,7 +103,7 @@ namespace AgenaTrader.UserCode
         {
            IOrder _orderenterlong = EnterLong(1, this.DisplayName + "_" + OrderAction.Buy + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
             SetStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
-            SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01); 
+            SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace AgenaTrader.UserCode
             SetProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.99);
         }
 
-     
+
 
         public override string ToString()
         {
