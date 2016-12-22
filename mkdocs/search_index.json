@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to the AgenaTrader tutorial!\n\n\nWant to learn more about the AgenaTrader scripting language? We've got the resources to help you get started. Start by browsing the tutorials on the list below.\n\n\nTutorials\n\n\nExamples for Indicator, Condition and Strategy\n\n\nThese two tutorials will show you two examples for indicators, conditions, strategies and give you the ability to have a quick start into AgenaTrader scripting.\n\n\n\n\nBasic Example\n\n\nAdvanced Example\n\n\n\n\nContact us\n\n\nIf you have any questions, feedback for us or you have particular wishes please do not hesitate to contact us:\n\n\n\n\nGitHub Simon\n or \nTwitter Simon\n\n\nGitHub Christian\n or \nTwitter Christian", 
+            "text": "The following API documentation requires AgenaTrader in version 1.9.0.563\n\n\nWelcome to the AgenaTrader tutorial!\n\n\nWant to learn more about the AgenaTrader scripting language? We've got the resources to help you get started. Start by browsing the tutorials on the list below.\n\n\nTutorials\n\n\nExamples for Indicator, Condition and Strategy\n\n\nThese two tutorials will show you two examples for indicators, conditions, strategies and give you the ability to have a quick start into AgenaTrader scripting.\n\n\n\n\nBasic Example\n\n\nAdvanced Example\n\n\n\n\nContact us\n\n\nIf you have any questions, feedback for us or you have particular wishes please do not hesitate to contact us:\n\n\n\n\nGitHub Simon\n or \nTwitter Simon\n\n\nGitHub Christian\n or \nTwitter Christian", 
             "title": "Lets start"
         }, 
         {
