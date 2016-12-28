@@ -12,7 +12,7 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
 /// <summary>
-/// Version: 1.2.2
+/// Version: 1.2.3
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
@@ -45,11 +45,11 @@ namespace AgenaTrader.UserCode
         private IOrder _orderenterlong;
         private IOrder _orderentershort;
 
-		protected override void Initialize()
+		protected override void OnInit()
 		{
             //Define if the OnBarUpdate method should be triggered only on BarClose (=end of period)
             //or with each price update
-            CalculateOnBarClose = true;
+            CalculateOnClosedBar = true;
 
             //Set the default time frame if you start the strategy via the strategy-escort
             //if you start the strategy on a chart the TimeFrame is automatically set, this will lead to a better usability
@@ -60,20 +60,20 @@ namespace AgenaTrader.UserCode
 
             //Because of backtesting reasons if we use the advanced mode we need at least two bars!
 			//In this case we are using SMA50, so we need at least 50 bars.
-            this.BarsRequired = 50;
+            this.RequiredBarsCount = 50;
         }
 
 
-        protected override void OnStartUp()
+        protected override void OnStart()
         {
-            base.OnStartUp();
+            base.OnStart();
 
             //Init our indicator to get code access to the calculate method
             this._Example_Indicator_SMA_CrossOver_Advanced = new Example_Indicator_SMA_CrossOver_Advanced();
 
         }
 
-		protected override void OnBarUpdate()
+		protected override void OnCalculate()
 		{
             //Set Autopilot
             this.IsAutomated = this.Autopilot;
@@ -86,7 +86,7 @@ namespace AgenaTrader.UserCode
             }
 
             //Lets call the calculate method and save the result with the trade action
-            ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(this.Input, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
+            ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(this.InSeries, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
 
             //If the calculate method was not finished we need to stop and show an alert message to the user.
             if (returnvalue.ErrorOccured)
@@ -132,13 +132,13 @@ namespace AgenaTrader.UserCode
         {
             if (_orderenterlong == null)
             {
-                _orderenterlong = EnterLong(this.DefaultQuantity, this.DisplayName + "_" + OrderAction.Buy + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
+                _orderenterlong = OpenLong(this.DefaultOrderQuantity, this.DisplayName + "_" + OrderAction.Buy + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
                 
                 //set a stop loss for our order. we set it 1% below the current price
-                SetStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
+                SetUpStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
 
                 //set a target for our order. we set it 3% above the current price
-                SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.05);
+                SetUpProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.05);
             }
         }
 
@@ -149,13 +149,13 @@ namespace AgenaTrader.UserCode
         {
             if (_orderentershort == null)
             {
-                _orderentershort = EnterShort(this.DefaultQuantity, this.DisplayName + "_" + OrderAction.SellShort + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
+                _orderentershort = OpenShort(this.DefaultOrderQuantity, this.DisplayName + "_" + OrderAction.SellShort + "_" + this.Instrument.Symbol + "_" + Bars[0].Time.Ticks.ToString(), this.Instrument, this.TimeFrame);
 
                 //set a stop loss for our order. we set it 1% above the current price
-                SetStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
+                SetUpStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
 
                 //set a target for our order. we set it 3% below the current price
-                SetProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.95);
+                SetUpProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.95);
             }
         }
 
@@ -166,7 +166,7 @@ namespace AgenaTrader.UserCode
         {
             if (_orderenterlong != null)
             {
-                 ExitLong(this._orderenterlong.Name);
+                 OpenLong(this._orderenterlong.Name);
                  this._orderenterlong = null;
             }
         }
@@ -178,7 +178,7 @@ namespace AgenaTrader.UserCode
         {
             if (_orderentershort != null)
             {
-                ExitShort(this._orderentershort.Name);
+                OpenShort(this._orderentershort.Name);
                 this._orderentershort = null;
             }
         }

@@ -57,23 +57,23 @@ Because we already have added our trading concept in the "calculate" method in t
 private Example_Indicator_SMA_CrossOver_Advanced _Example_Indicator_SMA_CrossOver_Advanced = null;
 ```
 
-We need to initalize this variable in our OnStartUp() method:
+We need to initalize this variable in our OnStart() method:
 
 ```cs
-protected override void OnStartUp()
+protected override void OnStart()
 {
-     base.OnStartUp();
+     base.OnStart();
 
      //Init our indicator to get code access to the calculate method
      this._Example_Indicator_SMA_CrossOver_Advanced = new Example_Indicator_SMA_CrossOver_Advanced();
 }
 ```
 
-Now we are ready to use the "calculate" method of the indicator in our OnBarUpdate() method of the condition:
+Now we are ready to use the "calculate" method of the indicator in our OnCalculate() method of the condition:
 
 ```cs
 //Lets call the calculate method and save the result with the trade action
-ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(this.Input, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
+ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this._Example_Indicator_SMA_CrossOver_Advanced.calculate(this.InSeries, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
 ```
 
 In the code snippet above we see that the return value of the "calculate" method is our "ResultObject" from the beginning of this tutorial. So we just need to evaluate this object.
@@ -105,16 +105,15 @@ else
 ```
 
 #Strategy
-Of course we are following the same procedure as in our condition. We create a variable of the indicator class, we initalize this variable during the OnStartUp() method and we use the object in our OnBarUpdate() method.
-Please pay attention while backtesting with the parameter "Orders Handling Mode = Advanced", in this case we need at least two bars!
+Of course we are following the same procedure as in our condition. We create a variable of the indicator class, we initalize this variable during the OnStart() method and we use the object in our OnCalculate() method. Please pay attention while backtesting with the parameter "Orders Handling Mode = Advanced", in this case we need at least two bars!
 
 ```cs
 //Because of backtesting reasons if we use the advanced mode we need at least two bars!
 //In this case we are using SMA50, so we need at least 50 bars.
-this.BarsRequired = 50;
+this.RequiredBarsCount = 50;
 ```
 
-If you start the strategy on a chart the TimeFrame is automatically set. If you start this strategy within the "Strategy Escort", it would be a smart idea to set a default TimeFrame, this will lead to a better usability. We do this by adding the default TimeFrame in the Initialize() method.
+If you start the strategy on a chart the TimeFrame is automatically set. If you start this strategy within the "Strategy Escort", it would be a smart idea to set a default TimeFrame, this will lead to a better usability. We do this by adding the default TimeFrame in the OnInit() method.
 
 ```cs
 if (this.TimeFrame == null || this.TimeFrame.PeriodicityValue == 0)
@@ -133,7 +132,7 @@ In these methods we implement all rules for the creation of orders.
 To import all scripts into AgenaTrader without any error we add "indicator", "strategy", "condition" or "alert" to the filename and also to the c# class name. This is important because if you like to use all files in your AgenaTrader the names must be different. It is not possible to have an indicator and condition with the same name, e.g. "SMA_CrossOver". They must have unique names like "SMA_CrossOver_indicator" and "SMA_CrossOver_condition"!
 
 ##Color and drawing style
-If the user has changed the color or the drawing style of the script (indicator or condition) we need to change the setting during the OnBarUpdate() method.
+If the user has changed the color or the drawing style of the script (indicator or condition) we need to change the setting during the OnCalculate() method.
 
 ```cs
 //Set the drawing style, if the user has changed it.

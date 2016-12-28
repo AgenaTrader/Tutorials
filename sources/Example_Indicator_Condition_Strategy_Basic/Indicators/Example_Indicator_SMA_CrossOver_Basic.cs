@@ -12,7 +12,7 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
 /// <summary>
-/// Version: 1.0.1
+/// Version: 1.0.2
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
@@ -29,19 +29,19 @@ namespace AgenaTrader.UserCode
 	[Description("Basic indicator example for SMA crossover")]
 	public class Example_Indicator_SMA_CrossOver_Basic : UserIndicator
 	{
-		protected override void Initialize()
+		protected override void OnInit()
 		{
             //Define the plot and its color which is displayed underneath the chart
 			Add(new Plot(Color.Orange, "SMA_CrossOver"));
 
             //Define if the OnBarUpdate method should be triggered only on BarClose (=end of period)
             //or with each price update
-			CalculateOnBarClose = true;
+			CalculateOnClosedBar = true;
 
-            this.BarsRequired = 50;
+            this.RequiredBarsCount = 50;
         }
 
-		protected override void OnBarUpdate()
+		protected override void OnCalculate()
 		{
             //the value of SMA20 is calculated with the statemend "SMA(20)"
             //the value of SMA50 is calculated with the statemend "SMA(50)"
@@ -74,7 +74,7 @@ namespace AgenaTrader.UserCode
         /// <returns></returns>
         public override string ToString()
         {
-            return "Example SMA CrossOver Basic";
+            return "Example SMA CrossOver Basic (I)";
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace AgenaTrader.UserCode
         {
             get
             {
-                return "Example SMA CrossOver Basic";
+                return "Example SMA CrossOver Basic (I)";
             }
         }
 
@@ -95,7 +95,7 @@ namespace AgenaTrader.UserCode
 		[XmlIgnore()]
         public DataSeries SMA_CrossOver
         {
-			get { return Values[0]; }
+			get { return Outputs[0]; }
 		}
 
 		#endregion
@@ -115,7 +115,7 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic()
         {
-			return Example_Indicator_SMA_CrossOver_Basic(Input);
+			return Example_Indicator_SMA_CrossOver_Basic(InSeries);
 		}
 
 		/// <summary>
@@ -130,9 +130,9 @@ namespace AgenaTrader.UserCode
 
 			indicator = new Example_Indicator_SMA_CrossOver_Basic
 						{
-							BarsRequired = BarsRequired,
-							CalculateOnBarClose = CalculateOnBarClose,
-							Input = input
+							RequiredBarsCount = RequiredBarsCount,
+							CalculateOnClosedBar = CalculateOnClosedBar,
+							InSeries = input
 						};
 			indicator.SetUp();
 
@@ -153,7 +153,7 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic()
 		{
-			return LeadIndicator.Example_Indicator_SMA_CrossOver_Basic(Input);
+			return LeadIndicator.Example_Indicator_SMA_CrossOver_Basic(InSeries);
 		}
 
 		/// <summary>
@@ -161,8 +161,8 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic(IDataSeries input)
 		{
-			if (InInitialize && input == null)
-				throw new ArgumentException("You only can access an indicator with the default input/bar series from within the 'Initialize()' method");
+			if (IsInInit && input == null)
+				throw new ArgumentException("You only can access an indicator with the default input/bar series from within the 'OnInit()' method");
 
 			return LeadIndicator.Example_Indicator_SMA_CrossOver_Basic(input);
 		}
@@ -179,7 +179,7 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic()
 		{
-			return LeadIndicator.Example_Indicator_SMA_CrossOver_Basic(Input);
+			return LeadIndicator.Example_Indicator_SMA_CrossOver_Basic(InSeries);
 		}
 
 		/// <summary>
@@ -202,7 +202,7 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic()
 		{
-			return LeadIndicator.Example_Indicator_SMA_CrossOver_Basic(Input);
+			return LeadIndicator.Example_Indicator_SMA_CrossOver_Basic(InSeries);
 		}
 
 		/// <summary>

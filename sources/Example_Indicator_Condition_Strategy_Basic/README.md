@@ -14,11 +14,11 @@ This tutorial will show you a basic example for indicators, conditions and strat
 In many cases we are starting with indicators because indicators are the easiest place to start on script development.
 You will get a quick indication if your trading idea is working and addionally you can screen your instruments of choice visually and verify if your trading idea will be profitable.
 
-##OnBarUpdate
-Our main logic will be inside the OnBarUpdate() method. In our example, we are using the SMA to get long and short signals. If the SMA20 is crossing above the SMA50 we get a long signal. If the SMA20 is crossing below the SMA50 we create a short signal.
+##OnCalculate
+Our main logic will be inside the OnCalculate() method. In our example, we are using the SMA to get long and short signals. If the SMA20 is crossing above the SMA50 we get a long signal. If the SMA20 is crossing below the SMA50 we create a short signal.
 
 ```cs
-protected override void OnBarUpdate()
+protected override void OnCalculate()
 {
             //the internal function CrossAbove checks if the two values are crossing above
             if (CrossAbove(SMA(20), SMA(50), 0) == true)
@@ -41,11 +41,11 @@ protected override void OnBarUpdate()
 ```
 
 #Condition
-##OnBarUpdate
-Like in the indicator, the main logic is inside of the OnBarUpdate() method. Because our main logic is inside the indicator itself, we need to create an instance of this very indicator. So we are able to get the data from the indicator and set our "Occured" object.
+##OnCalculate
+Like in the indicator, the main logic is inside of the OnCalculate() method. Because our main logic is inside the indicator itself, we need to create an instance of this very indicator. So we are able to get the data from the indicator and set our "Occured" object.
 
 ```cs
-protected override void OnBarUpdate()
+protected override void OnCalculate()
 {
             //get the indicator
             Example_Indicator_SMA_CrossOver_Basic Example_Indicator_SMA_CrossOver_Basic = LeadIndicator.Example_Indicator_SMA_CrossOver_Basic();
@@ -59,11 +59,11 @@ protected override void OnBarUpdate()
 ```
 
 #Strategy
-##OnBarUpdate
+##OnCalculate
 Same procedure as in the condition. We create a fresh instance of the indicator and save the return value into a variable. Based on the return value we call the methods to create orders.
 
 ```cs
-protected override void OnBarUpdate()
+protected override void OnCalculate()
 {
             string uniqueOrderName;
 
@@ -80,13 +80,13 @@ protected override void OnBarUpdate()
                 uniqueOrderName = "Long_SMA_CrossOver" + Bars[0].Time.ToString();
 
                 //create the long order with quantity "1" and our unique OrderName
-                IOrder _orderenterlong = EnterLong(1, uniqueOrderName);
+                IOrder _orderenterlong = OpenLong(1, uniqueOrderName);
 
                 //set a stop loss for our order. we set it 1% below the current price
-                SetStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
+                SetUpStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
 
                 //set a target for our order. we set it 1% above the current price
-                SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01);
+                SetUpProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01);
 
 
             }
@@ -96,23 +96,23 @@ protected override void OnBarUpdate()
                 uniqueOrderName = "Short_SMA_CrossOver" + Bars[0].Time.ToString();
 
                 //create the short order with quantity "1" and our unique OrderName
-                IOrder _orderentershort = EnterShort(1, uniqueOrderName);
+                IOrder _orderentershort = OpenShort(1, uniqueOrderName);
 
                 //set a stop loss for our order. we set it 1% above the current price
-                SetStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
+                SetUpStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
 
                 //set a target for our order. we set it 1% below the current price
-                SetProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.99);
+                SetUpProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.99);
             }
 }
 ```
 
 #Miscellaneous
 ##Bars required
-Because of backtesting reasons: If we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the Initialize() method.
+Because of backtesting reasons: If we use the advanced mode we need at least two bars, but in our case we are using SMA50 so we need at least 50 bars. We set this in the OnInit() method.
 
 ```cs
-this.BarsRequired = 50;
+this.RequiredBarsCount = 50;
 ```
 
 ##Filenames and Class names
@@ -128,7 +128,7 @@ In each script we override the ToString() method and the DisplayName to provide 
         /// <returns></returns>
         public override string ToString()
         {
-            return "Example SMA CrossOver Basic";
+          return "Example SMA CrossOver Advanced (I)";
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ In each script we override the ToString() method and the DisplayName to provide 
         {
             get
             {
-                return "Example SMA CrossOver Basic";
+                return "Example SMA CrossOver Advanced (I)";
             }
         }
 ```
