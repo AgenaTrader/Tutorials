@@ -12,7 +12,7 @@ using AgenaTrader.Plugins;
 using AgenaTrader.Helper;
 
 /// <summary>
-/// Version: 1.2.2
+/// Version: 1.2.3
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
@@ -66,7 +66,7 @@ namespace AgenaTrader.UserCode
         /// <summary>
         /// This method is used to configure the indicator and is called once before any bar data is loaded.
         /// </summary>
-        protected override void Initialize()
+        protected override void OnInit()
         {
             //Define the plots and its color which is displayed underneath the chart
             Add(new Plot(this.Plot0Color, "SMA_CrossOver_Entry"));
@@ -74,21 +74,21 @@ namespace AgenaTrader.UserCode
 
             //Define if the OnBarUpdate method should be triggered only on BarClose (=end of period)
             //or with each price update
-            CalculateOnBarClose = true;
+            CalculateOnClosedBar = true;
 
             //Indicator should be drawn on the price panel
-            Overlay = true;
+            this.IsOverlay = true;
 
             //Because of backtesting reasons if we use the advanced mode we need at least two bars!
-			//In this case we are using SMA50, so we need at least 50 bars.
-            this.BarsRequired = 50;
+            //In this case we are using SMA50, so we need at least 50 bars.
+            this.RequiredBarsCount = 50;
         }
 
 
         /// <summary>
         /// Called on each update of the bar.
         /// </summary>
-        protected override void OnBarUpdate()
+        protected override void OnCalculate()
         {
 
             //Check if peridocity is valid for this script
@@ -99,7 +99,7 @@ namespace AgenaTrader.UserCode
             }
 
             //Lets call the calculate method and save the result with the trade action
-            ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this.calculate(this.Input, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
+            ResultValue_Example_Indicator_SMA_CrossOver_Advanced returnvalue = this.calculate(this.InSeries, this.FastSma, this.SlowSma, this.IsLongEnabled, this.IsShortEnabled);
 
             //If the calculate method was not finished we need to stop and show an alert message to the user.
             if (returnvalue.ErrorOccured)
@@ -118,10 +118,10 @@ namespace AgenaTrader.UserCode
                 switch (returnvalue.Entry)
                 {
                     case OrderAction.Buy:
-                        DrawDot("ArrowLong_Entry" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, Color.Orange);
+                        AddChartDot("ArrowLong_Entry" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, Color.Orange);
                         break;
                     case OrderAction.SellShort:
-                        DrawDiamond("ArrowShort_Entry" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, Color.Orange);
+                        AddChartDiamond("ArrowShort_Entry" + Bars[0].Time.Ticks, true, Bars[0].Time, Bars[0].Open, Color.Orange);
                         break;
                 }
             }
@@ -397,14 +397,14 @@ namespace AgenaTrader.UserCode
             [XmlIgnore()]
             public DataSeries Indicator_Curve_Fast
             {
-                get { return Values[0]; }
+                get { return Outputs[0]; }
             }
 
             [Browsable(false)]
             [XmlIgnore()]
             public DataSeries Indicator_Curve_Slow
             {
-                get { return Values[1]; }
+                get { return Outputs[1]; }
             }
 
             #endregion
@@ -430,7 +430,7 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Advanced Example_Indicator_SMA_CrossOver_Advanced(System.Int32 fastSma, System.Int32 slowSma, System.Boolean isLongEnabled, System.Boolean isShortEnabled)
         {
-			return Example_Indicator_SMA_CrossOver_Advanced(Input, fastSma, slowSma, isLongEnabled, isShortEnabled);
+			return Example_Indicator_SMA_CrossOver_Advanced(InSeries, fastSma, slowSma, isLongEnabled, isShortEnabled);
 		}
 
 		/// <summary>
@@ -445,9 +445,9 @@ namespace AgenaTrader.UserCode
 
 			indicator = new Example_Indicator_SMA_CrossOver_Advanced
 						{
-							BarsRequired = BarsRequired,
-							CalculateOnBarClose = CalculateOnBarClose,
-							Input = input,
+							RequiredBarsCount = RequiredBarsCount,
+							CalculateOnClosedBar = CalculateOnClosedBar,
+							InSeries = input,
 							FastSma = fastSma,
 							SlowSma = slowSma,
 							IsLongEnabled = isLongEnabled,
@@ -472,7 +472,7 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Advanced Example_Indicator_SMA_CrossOver_Advanced(System.Int32 fastSma, System.Int32 slowSma, System.Boolean isLongEnabled, System.Boolean isShortEnabled)
 		{
-			return LeadIndicator.Example_Indicator_SMA_CrossOver_Advanced(Input, fastSma, slowSma, isLongEnabled, isShortEnabled);
+			return LeadIndicator.Example_Indicator_SMA_CrossOver_Advanced(InSeries, fastSma, slowSma, isLongEnabled, isShortEnabled);
 		}
 
 		/// <summary>
@@ -480,8 +480,8 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Advanced Example_Indicator_SMA_CrossOver_Advanced(IDataSeries input, System.Int32 fastSma, System.Int32 slowSma, System.Boolean isLongEnabled, System.Boolean isShortEnabled)
 		{
-			if (InInitialize && input == null)
-				throw new ArgumentException("You only can access an indicator with the default input/bar series from within the 'Initialize()' method");
+			if (IsInInit && input == null)
+				throw new ArgumentException("You only can access an indicator with the default input/bar series from within the 'OnInit()' method");
 
 			return LeadIndicator.Example_Indicator_SMA_CrossOver_Advanced(input, fastSma, slowSma, isLongEnabled, isShortEnabled);
 		}
@@ -498,7 +498,7 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Advanced Example_Indicator_SMA_CrossOver_Advanced(System.Int32 fastSma, System.Int32 slowSma, System.Boolean isLongEnabled, System.Boolean isShortEnabled)
 		{
-			return LeadIndicator.Example_Indicator_SMA_CrossOver_Advanced(Input, fastSma, slowSma, isLongEnabled, isShortEnabled);
+			return LeadIndicator.Example_Indicator_SMA_CrossOver_Advanced(InSeries, fastSma, slowSma, isLongEnabled, isShortEnabled);
 		}
 
 		/// <summary>
@@ -521,7 +521,7 @@ namespace AgenaTrader.UserCode
 		/// </summary>
 		public Example_Indicator_SMA_CrossOver_Advanced Example_Indicator_SMA_CrossOver_Advanced(System.Int32 fastSma, System.Int32 slowSma, System.Boolean isLongEnabled, System.Boolean isShortEnabled)
 		{
-			return LeadIndicator.Example_Indicator_SMA_CrossOver_Advanced(Input, fastSma, slowSma, isLongEnabled, isShortEnabled);
+			return LeadIndicator.Example_Indicator_SMA_CrossOver_Advanced(InSeries, fastSma, slowSma, isLongEnabled, isShortEnabled);
 		}
 
 		/// <summary>

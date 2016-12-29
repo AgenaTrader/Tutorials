@@ -7,7 +7,7 @@ using AgenaTrader.API;
 using AgenaTrader.Plugins;
 
 /// <summary>
-/// Version: 1.0.1
+/// Version: 1.0.2
 /// -------------------------------------------------------------------------
 /// Simon Pucher 2016
 /// Christian Kovar 2016
@@ -25,14 +25,14 @@ namespace AgenaTrader.UserCode
 	[Description("Basic strategy example for SMA crossover")]
 	public class Example_Strategy_SMA_CrossOver_Basic : UserStrategy
 	{
-		protected override void Initialize()
+		protected override void OnInit()
 		{
-			CalculateOnBarClose = true;
+            CalculateOnClosedBar = true;
 
-            this.BarsRequired = 50;
+            this.RequiredBarsCount = 50;
         }
 
-		protected override void OnBarUpdate()
+		protected override void OnCalculate()
 		{
             string uniqueOrderName;
 
@@ -49,13 +49,13 @@ namespace AgenaTrader.UserCode
                 uniqueOrderName = "Long_SMA_CrossOver" + Bars[0].Time.ToString();
 
                 //create the long order with quantity "1" and our unique OrderName
-                IOrder _orderenterlong = EnterLong(1, uniqueOrderName);
+                IOrder _orderenterlong = OpenLong(1, uniqueOrderName);
 
                 //set a stop loss for our order. we set it 1% below the current price
-                SetStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
+                SetUpStopLoss(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 0.99, false);
 
                 //set a target for our order. we set it 1% above the current price
-                SetProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01); 
+                SetUpProfitTarget(_orderenterlong.Name, CalculationMode.Price, Bars[0].Close * 1.01); 
 
 
             }
@@ -65,13 +65,13 @@ namespace AgenaTrader.UserCode
                 uniqueOrderName = "Short_SMA_CrossOver" + Bars[0].Time.ToString();
 
                 //create the short order with quantity "1" and our unique OrderName
-                IOrder _orderentershort = EnterShort(1, uniqueOrderName);
+                IOrder _orderentershort = OpenShort(1, uniqueOrderName);
 
                 //set a stop loss for our order. we set it 1% above the current price
-                SetStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
+                SetUpStopLoss(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 1.01, false);
 
                 //set a target for our order. we set it 1% below the current price
-                SetProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.99);
+                SetUpProfitTarget(_orderentershort.Name, CalculationMode.Price, Bars[0].Close * 0.99);
             }
 
 		}
@@ -82,7 +82,7 @@ namespace AgenaTrader.UserCode
         /// <returns></returns>
         public override string ToString()
         {
-            return "Example SMA CrossOver Basic";
+            return "Example SMA CrossOver Basic (S)";
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace AgenaTrader.UserCode
         {
             get
             {
-                return "Example SMA CrossOver Basic";
+                return "Example SMA CrossOver Basic (S)";
             }
         }
 
